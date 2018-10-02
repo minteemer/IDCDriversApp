@@ -22,6 +22,6 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             Single.just(tasks).delay(1, TimeUnit.SECONDS)
 
     override fun getTaskById(taskId: Int): Single<DriverTask?> =
-            Single.just(tasks.getOrNull(taskId))
+            Single.just(tasks.firstOrNull { it.taskId == taskId })
 
 }
