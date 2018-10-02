@@ -15,9 +15,9 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {view.loadTask(it)},
-                        {}
+                        {view.showGetTaskError()}
                 )
-
+                .also { disposables.add(it)  }
 
     }
 }
