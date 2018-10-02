@@ -6,4 +6,51 @@
     android:layout_height="match_parent"
     tools:context="sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity">
 
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duedate"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="102dp" />
+
+    <TextView
+        android:id="@+id/contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contacts"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="65dp"
+        android:layout_height="19dp"
+        android:text="Address:"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="42dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contacts:"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duedate:"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="102dp" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="address"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="42dp" />
 </android.support.constraint.ConstraintLayout>
