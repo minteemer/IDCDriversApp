@@ -17,7 +17,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCQqRkIJeT_8b8QCt_wl66I1QQd7xdYSys" />
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".presentation.driverTasksList.view.DriverTasksListActivity"
