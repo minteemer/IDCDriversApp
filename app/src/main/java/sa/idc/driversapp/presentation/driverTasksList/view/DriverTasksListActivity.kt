@@ -67,4 +67,9 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
     override fun openTask(taskId: Int) {
         DriverTaskActivity.start(this, taskId)
     }
+
+    override fun onDestroy() {
+        presenter.destroy()
+        super.onDestroy()
+    }
 }

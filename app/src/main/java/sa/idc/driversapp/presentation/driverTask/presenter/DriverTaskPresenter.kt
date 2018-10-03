@@ -33,4 +33,8 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 .also { disposables.add(it) }
 
     }
+
+    fun destroy() {
+        disposables.dispose()
+    }
 }

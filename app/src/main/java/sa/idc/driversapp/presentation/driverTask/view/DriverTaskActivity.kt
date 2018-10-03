@@ -90,6 +90,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
     override fun onDestroy() {
         mapReadyDisposable?.dispose()
+        presenter.destroy()
         super.onDestroy()
     }
 }
