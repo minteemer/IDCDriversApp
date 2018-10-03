@@ -12,14 +12,6 @@ import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskPresenter
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskView
 
 class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
-    override fun loadTask(driverTask: DriverTask?) {
-        address.text = driverTask?.address
-        contacts.text = driverTask?.contact
-        date.text = driverTask?.dueDate.toString()
-
-
-    }
-
 
     companion object {
         private const val TASK_ID_INTENT_FIELD = "task_id"
@@ -35,10 +27,17 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_driver_tasks_list)
-        val id = intent.getIntExtra("ID_OF_TASK",0)
-        presenter.loadTask(id)
+        setContentView(R.layout.activity_driver_task)
 
+        val id = intent.getIntExtra(TASK_ID_INTENT_FIELD, -1)
+
+        presenter.loadTask(id)
+    }
+
+    override fun loadTask(driverTask: DriverTask) {
+        tv_address_field.text = driverTask.address
+        tv_contacts_field.text = driverTask.contact
+        tv_due_date_field.text = driverTask.dueDate.toString()
     }
 
     override fun showGetTaskError() {
@@ -49,5 +48,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         ).show()
     }
 
-
+    override fun close() {
+        finish()
+    }
 }
