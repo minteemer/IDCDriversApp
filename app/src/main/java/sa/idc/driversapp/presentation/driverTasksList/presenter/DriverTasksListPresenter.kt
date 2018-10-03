@@ -13,12 +13,18 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     private val disposables = CompositeDisposable()
 
-    fun getTasks() {
+    fun refreshTasks() {
+        view.startTasksRefresh()
         interactor.getTasksList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { view.showTasksList(it) },
+                        {
+                            view.apply {
+                                showTasksList(it)
+                                finishTasksRefresh()
+                            }
+                        },
                         {
                             Log.e("TasksListPresenter", "Get tasks list error", it)
                             view.showGetTasksError()
