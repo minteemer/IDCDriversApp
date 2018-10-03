@@ -11,10 +11,10 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             Date(System.currentTimeMillis() + Random().nextInt(2000000000))
 
     private val tasks = listOf(
-            DriverTask(0, getRandomDate(), "Ул. Пушкина, Дом Колотушкина"),
-            DriverTask(1, getRandomDate(), "Университетская 1"),
-            DriverTask(2, getRandomDate(), "пвыпывап"),
-            DriverTask(3, getRandomDate(), "ФЫфвыфв фыв пвыуддльт")
+            DriverTask(0, getRandomDate(), "Ул. Пушкина, Дом Колотушкина","+7777777777"),
+            DriverTask(1, getRandomDate(), "Университетская 1","+7777777777"),
+            DriverTask(2, getRandomDate(), "пвыпывап","+7777777777"),
+            DriverTask(3, getRandomDate(), "ФЫфвыфв фыв пвыуддльт","+7777777777")
     )
 
 

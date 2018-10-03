@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">IDC Drivers App</string>
 
+    <!-- Tasks list -->
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, plese try later!</string>
+
+    <!-- Task description -->
+    <string name="taskError">Something is wrong :(</string>
 </resources>
