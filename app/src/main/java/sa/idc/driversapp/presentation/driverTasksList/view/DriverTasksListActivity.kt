@@ -23,7 +23,11 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
 
         initTasksRecycler()
 
-        presenter.getTasks()
+        swipe_to_refresh_tasks_list.setOnRefreshListener {
+            presenter.refreshTasks()
+        }
+
+        presenter.refreshTasks()
     }
 
     private fun initTasksRecycler() {
@@ -32,6 +36,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
             presenter.selectTask(it)
         }
     }
+
 
     override fun showTasksList(tasks: List<DriverTask>) {
         tasksList.apply {
@@ -47,6 +52,15 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
                 getString(R.string.get_driver_tasks_list_error),
                 Toast.LENGTH_SHORT
         ).show()
+    }
+
+
+    override fun startTasksRefresh() {
+        swipe_to_refresh_tasks_list.isRefreshing = true
+    }
+
+    override fun finishTasksRefresh() {
+        swipe_to_refresh_tasks_list.isRefreshing = false
     }
 
     override fun openTask(taskId: Int) {

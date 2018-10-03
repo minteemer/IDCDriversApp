@@ -11,4 +11,10 @@ interface DriverTasksListView {
 
     /** Show user detailed information about a task  with given [taskId] */
     fun openTask(taskId: Int)
+
+    /** Start task refreshing animation */
+    fun startTasksRefresh()
+
+    /** Finish task refreshing animation */
+    fun finishTasksRefresh()
 }
