@@ -15,16 +15,19 @@
         android:text="@string/address"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+
         android:id="@+id/tv_address_field"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/tv_address"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="asfdsdaf  adsf asdf" />
 
@@ -38,17 +41,18 @@
         android:text="@string/due_date"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+        app:layout_constraintTop_toBottomOf="@id/tv_address_field" />
 
     <TextView
         android:id="@+id/tv_due_date_field"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_due_date"
-        app:layout_constraintTop_toBottomOf="@id/tv_address"
+        app:layout_constraintTop_toBottomOf="@id/tv_address_field"
         tools:text="12.12.2018 12:30" />
 
 
@@ -61,17 +65,18 @@
         android:text="@string/contacts"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_due_date" />
+        app:layout_constraintTop_toBottomOf="@id/tv_due_date_field" />
 
     <TextView
         android:id="@+id/tv_contacts_field"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_contacts"
-        app:layout_constraintTop_toBottomOf="@id/tv_due_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_due_date_field"
         tools:text="8 800 555 35 35" />
 
 
