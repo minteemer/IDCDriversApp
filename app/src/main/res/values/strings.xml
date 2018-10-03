@@ -2,11 +2,20 @@
     <string name="app_name">IDC Drivers App</string>
 
     <!-- Tasks list -->
+    <string name="driver_tasks_list_title">Delivery tasks</string>
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, plese try later!</string>
+    <string name="tasks_list_item_due_date">Due %1$s</string>
+
 
     <!-- Task description -->
+    <string name="driver_task_activity_title">Delivery task details</string>
     <string name="taskError">Something is wrong :(</string>
     <string name="address">Address: </string>
     <string name="contacts">Contacts: </string>
-    <string name="duedate">Due date: </string>
+    <string name="due_date">Due date: </string>
+
+
+    <!-- DateTime formats -->
+    <string name="default_date_time_format">dd.MM.yy hh:mm</string>
+
 </resources>

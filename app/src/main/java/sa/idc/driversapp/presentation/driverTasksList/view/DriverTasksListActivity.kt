@@ -20,6 +20,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_driver_tasks_list)
+        setTitle(R.string.driver_tasks_list_title)
 
         initTasksRecycler()
 

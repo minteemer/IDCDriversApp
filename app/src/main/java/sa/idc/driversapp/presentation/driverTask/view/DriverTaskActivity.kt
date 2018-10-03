@@ -8,6 +8,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_driver_task.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
+import sa.idc.driversapp.domain.entities.tools.DateFormats
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskPresenter
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskView
 
@@ -28,6 +29,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_driver_task)
+        setTitle(R.string.driver_task_activity_title)
 
         val id = intent.getIntExtra(TASK_ID_INTENT_FIELD, -1)
 
@@ -37,7 +39,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     override fun loadTask(driverTask: DriverTask) {
         tv_address_field.text = driverTask.address
         tv_contacts_field.text = driverTask.contact
-        tv_due_date_field.text = driverTask.dueDate.toString()
+        tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.dueDate)
     }
 
     override fun showGetTaskError() {

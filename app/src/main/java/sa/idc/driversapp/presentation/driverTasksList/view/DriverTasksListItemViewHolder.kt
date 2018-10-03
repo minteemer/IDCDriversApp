@@ -3,17 +3,19 @@ package sa.idc.driversapp.presentation.driverTasksList.view
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.recycler_view_item_driver_task.view.*
+import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
-import java.text.SimpleDateFormat
+import sa.idc.driversapp.domain.entities.tools.DateFormats
 
 class DriverTasksListItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-
-    private val dateFormat = SimpleDateFormat.getDateTimeInstance()
 
     fun attach(task: DriverTask, onTaskClick: ((task: DriverTask) -> Unit)?) {
         view.apply {
             tv_destination.text = task.address
-            tv_due_date.text = dateFormat.format(task.dueDate)
+            tv_due_date.text = view.context.getString(
+                    R.string.tasks_list_item_due_date,
+                    DateFormats.defaultDateTime.format(task.dueDate)
+            )
         }
 
         onTaskClick?.let { listener ->

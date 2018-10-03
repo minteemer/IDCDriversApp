@@ -4,6 +4,7 @@
     package="sa.idc.driversapp">
 
     <application
+        android:name=".IDCDriversApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
