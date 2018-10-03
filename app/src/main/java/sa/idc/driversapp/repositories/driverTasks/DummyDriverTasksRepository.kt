@@ -21,7 +21,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             "Kearny Street 23" to "8(948)175-38-51",
             "Polk Street 73" to "8(956)469-38-73",
             "Stockton Street 81" to "8(926)286-84-43",
-            "Third Street 12" to "8(956)469-38-73"
+            "Third Street 12" to "8 (932) 604-21-46"
     ).asSequence()
             .mapIndexed { i, (address, contacts) ->
                 DriverTask(i, getRandomDate(), address, contacts)
