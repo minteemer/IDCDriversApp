@@ -11,12 +11,16 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             Date(System.currentTimeMillis() + Random().nextInt(2000000000))
 
     private val tasks = listOf(
-            DriverTask(0, getRandomDate(), "Ул. Пушкина, Дом Колотушкина","+7777777777"),
-            DriverTask(1, getRandomDate(), "Университетская 1","+7777777777"),
-            DriverTask(2, getRandomDate(), "пвыпывап","+7777777777"),
-            DriverTask(3, getRandomDate(), "ФЫфвыфв фыв пвыуддльт","+7777777777")
-    )
-
+            "Ул. Пушкина, Дом Колотушкина" to "+7777777777",
+            "Университетская 1" to "+7777777777",
+            "пвыпывап" to "+7777777777",
+            "ФЫфвыфв фыв пвыуддльт" to "+7777777777"
+    ).asSequence()
+            .mapIndexed { i, (address, contacts) ->
+                DriverTask(i, getRandomDate(), address, contacts)
+            }
+            .sortedBy { it.dueDate }
+            .toList()
 
     override fun getTasksList(): Single<List<DriverTask>> =
             Single.just(tasks).delay(1, TimeUnit.SECONDS)

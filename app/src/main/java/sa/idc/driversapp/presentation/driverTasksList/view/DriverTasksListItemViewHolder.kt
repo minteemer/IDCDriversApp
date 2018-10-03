@@ -5,7 +5,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.recycler_view_item_driver_task.view.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
-import sa.idc.driversapp.domain.entities.tools.DateFormats
+import sa.idc.driversapp.util.DateFormats
 
 class DriverTasksListItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 

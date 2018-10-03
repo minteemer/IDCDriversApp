@@ -1,4 +1,4 @@
-package sa.idc.driversapp.domain.entities.tools
+package sa.idc.driversapp.util
 
 import sa.idc.driversapp.IDCDriversApp
 import sa.idc.driversapp.R

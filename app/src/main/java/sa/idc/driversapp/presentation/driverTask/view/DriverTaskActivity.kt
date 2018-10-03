@@ -8,7 +8,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_driver_task.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
-import sa.idc.driversapp.domain.entities.tools.DateFormats
+import sa.idc.driversapp.util.DateFormats
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskPresenter
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskView
 
