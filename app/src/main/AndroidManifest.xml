@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="sa.idc.driversapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".IDCDriversApp"
         android:allowBackup="false"
@@ -13,7 +15,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".presentation.driverTasksList.view.DriverTasksListActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCQqRkIJeT_8b8QCt_wl66I1QQd7xdYSys" />
+
+        <activity
+            android:name=".presentation.driverTasksList.view.DriverTasksListActivity"
+            android:label="@string/driver_tasks_list_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +29,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.driverTask.view.DriverTaskActivity" />
+        <activity
+            android:name=".presentation.driverTask.view.DriverTaskActivity"
+            android:label="@string/driver_task_activity_title" />
 
     </application>
 

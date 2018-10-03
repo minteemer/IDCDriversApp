@@ -3,7 +3,12 @@ package sa.idc.driversapp.presentation.driverTask.presenter
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 
 interface DriverTaskView {
-    fun loadTask(driverTask: DriverTask)
+    /** Show user task data */
+    fun showTask(driverTask: DriverTask)
+
+    /** Tell user that error occurred while getting task data */
     fun showGetTaskError()
+
+    /** Close the activity */
     fun close()
 }

@@ -20,7 +20,7 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { task ->
-                            task?.let { view.loadTask(it) } ?: run {
+                            task?.let { view.showTask(it) } ?: run {
                                 Log.e(LOG_TAG, "Unknown task ID: $id")
                                 view.close()
                             }
