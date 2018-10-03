@@ -11,5 +11,5 @@ class DriverTasksInteractor {
 
     fun getTasksList(): Single<List<DriverTask>> = driverTasksRepository.getTasksList()
 
-    fun getTaskByID(taskId: Int): Single<DriverTask> = driverTasksRepository.getTaskById(taskId)
+    fun getTaskByID(taskId: Int): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
 }
