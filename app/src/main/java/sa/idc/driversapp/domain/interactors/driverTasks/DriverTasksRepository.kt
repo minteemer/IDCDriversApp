@@ -1,4 +1,4 @@
-package sa.idc.driversapp.repositories.driverTasks
+package sa.idc.driversapp.domain.interactors.driverTasks
 
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
