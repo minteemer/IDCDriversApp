@@ -2,6 +2,7 @@ package sa.idc.driversapp.repositories.driverTasks
 
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
+import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksRepository
 import java.util.*
 import java.util.concurrent.TimeUnit
 

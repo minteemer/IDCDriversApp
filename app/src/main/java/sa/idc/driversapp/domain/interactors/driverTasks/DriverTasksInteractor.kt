@@ -2,7 +2,6 @@ package sa.idc.driversapp.domain.interactors.driverTasks
 
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
-import sa.idc.driversapp.repositories.driverTasks.DriverTasksRepository
 import sa.idc.driversapp.repositories.driverTasks.DummyDriverTasksRepository
 
 class DriverTasksInteractor {
