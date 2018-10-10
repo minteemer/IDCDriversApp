@@ -5,10 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import io.reactivex.*
@@ -20,6 +17,23 @@ import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.util.DateFormats
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskPresenter
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskView
+import android.R.attr.y
+import android.R.attr.x
+import android.graphics.*
+import com.google.android.gms.maps.Projection
+import com.google.android.gms.maps.model.JointType.ROUND
+import android.graphics.Paint.Join
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.Polyline
+import android.R.attr.mode
+import android.util.Log
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+
 
 class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
@@ -75,15 +89,61 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     private fun initMap() {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.task_description_map) as SupportMapFragment
+        val l2 = LatLng(55.7514319, 48.754850399999995)
+        val l1 = LatLng(55.7514319,48.754850399999995)
 
+        val request = "https://maps.googleapis.com/maps/api/directions/json?"+
+                "origin=${l1.latitude},${l1.longitude}"+
+                "&destination=${l2.latitude},${l2.longitude}"+
+                "&key=${getString(R.string.google_maps_key)}"
+        Log.d("DTActivityRequest",request)
         mapFragment.getMapAsync(mapReadyListener)
 
         mapReadyDisposable = Single.create(mapReadyListener)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { (map, location) ->
                     this.map = map.apply {
-                        addMarker(MarkerOptions().position(location).title("Destination"))
-                        moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14f))
+                        var result:String =""
+                        val obj = URL(request)
+                        Single.create<String> {emmiter ->
+                            var output =""
+                            with(obj.openConnection() as HttpURLConnection) {
+                                requestMethod = "GET"
+                                BufferedReader(InputStreamReader(inputStream)).use {
+                                    val response = StringBuffer()
+                                    var inputLine = it.readLine()
+                                    while (inputLine != null) {
+                                        response.append(inputLine)
+                                        inputLine = it.readLine()
+                                        output+=inputLine+"\n"
+                                    }
+
+
+                                }
+                            }
+                            Log.d("OutputActivity",output)
+                            val jsonObj = JSONObject(output.substring(output.indexOf("{"), output.lastIndexOf("}") + 1))
+                            val path = jsonObj.getString("points")
+                            Log.d("pathAc",path)
+
+                            emmiter.onSuccess(path)
+                        }
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(
+                                        {
+                                            result = it;
+                                           // Log.d("TDActivityResponse", result)
+                                            addMarker(MarkerOptions().position(location).title("Destination"))
+                                            moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14f))
+
+                                        },
+                                        {}
+                                )
+
+
+
+
                     }
                 }
     }
