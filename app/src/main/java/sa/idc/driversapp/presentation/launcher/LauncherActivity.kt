@@ -24,7 +24,7 @@ class LauncherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.launcher_activity)
 
-        if (AppPermissions.permissionIsGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (AppPermissions.permissionIsGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             initServicesAndFinish()
         } else {
             requestLocationPermission()

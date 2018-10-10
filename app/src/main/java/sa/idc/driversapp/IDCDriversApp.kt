@@ -1,7 +1,6 @@
 package sa.idc.driversapp
 
 import android.app.Application
-import sa.idc.driversapp.services.trackingData.TrackingDataService
 
 class IDCDriversApp : Application() {
     companion object {
@@ -13,9 +12,4 @@ class IDCDriversApp : Application() {
         instance = this
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        TrackingDataService.start(this)
-    }
 }
