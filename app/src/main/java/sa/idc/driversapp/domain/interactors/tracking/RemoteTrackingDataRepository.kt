@@ -5,9 +5,9 @@ import io.reactivex.Single
 import java.util.*
 
 interface RemoteTrackingDataRepository {
-    enum class SaveDataResult {
+    enum class SendDataResult {
         Success, ConnectionError
     }
 
-    fun sendTrackingData(location: Location, time: Date): Single<SaveDataResult>
+    fun sendTrackingData(location: Location, time: Date): Single<SendDataResult>
 }

@@ -44,7 +44,7 @@ class TrackingDataService : Service() {
         sendData()
     }
 
-    fun initLocationLogging() {
+    private fun initLocationLogging() {
         if (Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission(
                         this,
@@ -54,13 +54,13 @@ class TrackingDataService : Service() {
                         this,
                         android.Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { sendLocation(it) }
+            fusedLocationClient.lastLocation.addOnSuccessListener { saveLocation(it) }
         } else {
             stopSelf()
         }
     }
 
-    private fun sendLocation(location: Location?) {
+    private fun saveLocation(location: Location?) {
         if (location != null && System.currentTimeMillis() - lastSentDataTime > DATA_SENDING_INTERVAL_MILLS) {
             trackingInteractor.saveLocation(location)
                     .subscribeOn(Schedulers.io())
@@ -75,15 +75,24 @@ class TrackingDataService : Service() {
     }
 
 
+    private var moreDataAdded = false
+
     private fun sendData() {
         if (sendDataDisposable?.isDisposed != false) {
             sendDataDisposable = trackingInteractor.sendTrackingData()
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.computation())
                     .subscribe(
-                            { Log.i(LOG_TAG, "Sending tracking data is finished") },
+                            {
+                                if (moreDataAdded){
+                                    moreDataAdded = false
+                                    sendData()
+                                }
+                            },
                             { Log.e(LOG_TAG, "Error while sending tracking data", it) }
                     )
+        } else {
+            moreDataAdded = true
         }
     }
 
