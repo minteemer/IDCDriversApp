@@ -3,10 +3,14 @@
 
     <!-- Login -->
     <string name="login_activity_title">IDC Drivers App login</string>
+    <string name="login_connection_error">Check your internet connection</string>
+    <string name="login_error">Something went wrong</string>
+    <string name="login_wrong_password">Wrong password</string>
+
 
     <!-- Tasks list -->
     <string name="driver_tasks_list_title">Delivery tasks</string>
-    <string name="get_driver_tasks_list_error">Error while downloading list of tasks, plese try later!</string>
+    <string name="get_driver_tasks_list_error">Error while downloading list of tasks, please try later!</string>
     <string name="tasks_list_item_due_date">Due %1$s</string>
 
 
@@ -23,4 +27,5 @@
     <string name="DescriptionForLoginField">Login:</string>
     <string name="DescriptionForPasswordField">Password:</string>
     <string name="DefaultOfLoginField">Name</string>
+    <string name="login_button">Login</string>
 </resources>

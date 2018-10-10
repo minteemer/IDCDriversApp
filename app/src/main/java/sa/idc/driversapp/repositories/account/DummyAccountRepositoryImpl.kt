@@ -20,7 +20,7 @@ class DummyAccountRepositoryImpl : AccountRepository {
                         AccountInteractor.LoginResult.Success
                     else
                         AccountInteractor.LoginResult.WrongPassword
-                CONN_ERROR -> AccountInteractor.LoginResult.WrongPassword
+                CONN_ERROR -> AccountInteractor.LoginResult.ConnectionError
                 else -> AccountInteractor.LoginResult.WrongPassword
             }.let { Single.just(it to "test-token") }
 

@@ -14,11 +14,13 @@ class AccountInteractor {
 
     fun login(login: String, password: String) = repository.login(login, password).map {
         val (loginResult, token) = it
-        if (loginResult == LoginResult.Success){
+        if (loginResult == LoginResult.Success) {
             preferences.login = login
             preferences.token = token
         }
 
         loginResult
     }
+
+    fun isLoggedIn() = preferences.token != AppPreferences.DefaultValues.TOKEN
 }
