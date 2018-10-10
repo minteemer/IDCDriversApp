@@ -1,5 +1,7 @@
 package sa.idc.driversapp.presentation.driverTasksList.view
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +14,12 @@ import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListP
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListView
 
 class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, DriverTasksListActivity::class.java))
+        }
+    }
 
     private val presenter = DriverTasksListPresenter(this)
 
@@ -33,7 +41,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
 
     private fun initTasksRecycler() {
         rv_driver_tasks_list.layoutManager = LinearLayoutManager(this)
-        rv_driver_tasks_list.adapter = DriverTasksListAdapter(tasksList){
+        rv_driver_tasks_list.adapter = DriverTasksListAdapter(tasksList) {
             presenter.selectTask(it)
         }
     }

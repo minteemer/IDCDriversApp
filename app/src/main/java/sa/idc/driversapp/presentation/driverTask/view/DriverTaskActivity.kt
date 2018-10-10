@@ -20,6 +20,7 @@ import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.util.DateFormats
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskPresenter
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskView
+import sa.idc.driversapp.repositories.preferences.AppPreferences
 
 class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 

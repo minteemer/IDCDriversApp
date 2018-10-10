@@ -21,15 +21,22 @@
         <activity
             android:name=".presentation.driverTasksList.view.DriverTasksListActivity"
             android:label="@string/driver_tasks_list_title">
+        </activity>
+
+        <activity
+            android:name=".presentation.driverTask.view.DriverTaskActivity"
+            android:label="@string/driver_task_activity_title" />
+
+        <activity
+            android:name=".presentation.loginIn.view.LoginActivity"
+            android:label="@string/login_activity_title"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.driverTask.view.DriverTaskActivity"
-            android:label="@string/driver_task_activity_title" />
 
         <service
             android:name=".services.trackingData.TrackingDataService"
