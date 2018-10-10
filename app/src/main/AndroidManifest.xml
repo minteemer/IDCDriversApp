@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -22,17 +21,22 @@
         <activity
             android:name=".presentation.driverTasksList.view.DriverTasksListActivity"
             android:label="@string/driver_tasks_list_title">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
             android:name=".presentation.driverTask.view.DriverTaskActivity"
             android:label="@string/driver_task_activity_title" />
 
+        <activity
+            android:name=".presentation.loginIn.view.LoginActivity"
+            android:label="@string/login_activity_title"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

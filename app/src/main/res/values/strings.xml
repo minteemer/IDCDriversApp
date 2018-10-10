@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">IDC Drivers App</string>
 
+    <!-- Login -->
+    <string name="login_activity_title">IDC Drivers App login</string>
+
     <!-- Tasks list -->
     <string name="driver_tasks_list_title">Delivery tasks</string>
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, plese try later!</string>
@@ -17,5 +20,7 @@
 
     <!-- DateTime formats -->
     <string name="default_date_time_format">dd.MM.yy hh:mm</string>
-
+    <string name="DescriptionForLoginField">Login:</string>
+    <string name="DescriptionForPasswordField">Password:</string>
+    <string name="DefaultOfLoginField">Name</string>
 </resources>
