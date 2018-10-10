@@ -7,7 +7,7 @@ class AppPreferences private constructor(context: Context) :
         BaseSharedPreferences(context.getSharedPreferences(NAME, Context.MODE_PRIVATE)) {
 
     companion object {
-        const val NAME = "app_preferences"
+        private const val NAME = "app_preferences"
 
         val instance: AppPreferences by lazy { AppPreferences(IDCDriversApp.instance) }
     }

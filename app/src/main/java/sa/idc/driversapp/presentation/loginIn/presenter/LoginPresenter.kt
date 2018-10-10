@@ -11,18 +11,13 @@ class LoginPresenter(private val view: LoginView) {
 
     private val disposables = CompositeDisposable()
 
-    fun onLaunch(){
-        if (interactor.isLoggedIn()){
-            view.openTaskList()
-        }
-    }
-    fun login(log: String, password:  String ){
-        interactor.login(log,password)
+    fun login(log: String, password: String) {
+        interactor.login(log, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            when(it){
+                            when (it) {
                                 AccountInteractor.LoginResult.Success -> view.openTaskList()
                                 AccountInteractor.LoginResult.WrongPassword -> view.showWrongPasswordMessage()
                                 AccountInteractor.LoginResult.ConnectionError -> view.showConnectionErrorMessage()
@@ -37,4 +32,7 @@ class LoginPresenter(private val view: LoginView) {
                 .also { disposables.add(it) }
     }
 
+    fun destroy(){
+        disposables.dispose()
+    }
 }
