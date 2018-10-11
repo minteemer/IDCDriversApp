@@ -15,12 +15,12 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
 
     override fun getTasksList(): Single<List<DriverTask>> =
             dummyRepo.getTasksList()
-                    .flatMap {
+                    .flatMap { tasks ->
                         db.put()
-                                .objects(it)
+                                .objects(tasks.map { TaskEntry(it) })
                                 .prepare()
                                 .asRxCompletable()
-                                .toSingleDefault(it)
+                                .toSingleDefault(tasks)
                     }
 
     override fun getTaskById(taskId: Int): Single<DriverTask?> =
@@ -30,8 +30,8 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
                                 .`object`(TaskEntry::class.java)
                                 .withQuery(
                                         Query.builder()
-                                                .table("tasks")
-                                                .where("id = ?")
+                                                .table(TaskEntry.Table.NAME)
+                                                .where("id = ${TaskEntry.Table.Columns.ID}")
                                                 .whereArgs(taskId)
                                                 .build()
                                 )

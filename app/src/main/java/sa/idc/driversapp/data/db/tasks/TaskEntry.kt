@@ -24,8 +24,8 @@ data class TaskEntry @StorIOSQLiteCreator constructor(
         const val ON_CREATE: String = """
             CREATE TABLE $NAME (
                 ${Columns.ID} INTEGER NOT NULL PRIMARY KEY,
-                ${Columns.ID} INTEGER NOT NULL,
-                ${Columns.ID} INTEGER NOT NULL
+                ${Columns.ORDER_ID} INTEGER NOT NULL,
+                ${Columns.STATUS} STRING NOT NULL
             )
         """
     }
