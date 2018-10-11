@@ -84,4 +84,6 @@ class DummyDriverTasksRepository : DriverTasksRepository {
     override fun getTaskById(taskId: Int): Single<DriverTask?> =
             Single.just(tasks.firstOrNull { it.id == taskId })
 
+    fun getOrderById(orderId: Int): Order? =
+            tasks.firstOrNull { it.order.id == orderId }?.order
 }
