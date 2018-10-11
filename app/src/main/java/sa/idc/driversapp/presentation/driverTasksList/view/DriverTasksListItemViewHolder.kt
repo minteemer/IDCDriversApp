@@ -11,10 +11,10 @@ class DriverTasksListItemViewHolder(private val view: View) : RecyclerView.ViewH
 
     fun attach(task: DriverTask, onTaskClick: ((task: DriverTask) -> Unit)?) {
         view.apply {
-            tv_destination.text = task.address
+            tv_destination.text = task.order.destinationAddress
             tv_due_date.text = view.context.getString(
                     R.string.tasks_list_item_due_date,
-                    DateFormats.defaultDateTime.format(task.dueDate)
+                    DateFormats.defaultDateTime.format(task.order.dueDate)
             )
         }
 

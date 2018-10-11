@@ -34,7 +34,7 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
     }
 
     fun selectTask(task: DriverTask) {
-        view.openTask(task.taskId)
+        view.openTask(task.id)
     }
 
     fun destroy(){
