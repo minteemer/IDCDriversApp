@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import com.google.maps.android.PolyUtil
 import com.google.maps.model.DirectionsResult
 import io.reactivex.*
@@ -46,8 +46,13 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         val id = intent.getIntExtra(TASK_ID_INTENT_FIELD, -1)
 
         initMap()
+        initLocationTracking()
 
         presenter.loadTask(id)
+    }
+
+    private fun initLocationTracking() {
+
     }
 
     override fun showTask(driverTask: DriverTask) {
@@ -85,37 +90,37 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                     this.map = map
                     addMarkersToMap(directions)
                     addPolyline(directions)
-                    // moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14f))
                 }
     }
 
     private fun addPolyline(results: DirectionsResult) {
-        val decodedPath = PolyUtil.decode(results.routes[0].overviewPolyline.encodedPath)
-        map.addPolyline(PolylineOptions().addAll(decodedPath))
+        PolylineOptions()
+                .addAll(PolyUtil.decode(results.routes[0].overviewPolyline.encodedPath))
+                .color(ContextCompat.getColor(this, R.color.colorPrimary))
+                .also { map.addPolyline(it) }
     }
 
     private fun addMarkersToMap(results: DirectionsResult) {
-        map.addMarker(
-                MarkerOptions().position(LatLng(
-                        results.routes[0].legs[0].startLocation.lat,
-                        results.routes[0].legs[0].startLocation.lng
-                ))
-                        .title(results.routes[0].legs[0].startAddress)
-        )
-        map.addMarker(
-                MarkerOptions().position(LatLng(
-                        results.routes[0].legs[0].endLocation.lat,
-                        results.routes[0].legs[0].endLocation.lng
-                ))
-                        .title(results.routes[0].legs[0].endAddress)
-                        .snippet(getEndLocationTitle(results))
-        )
+        results.routes[0].legs[0].apply {
+            val origin = LatLng(startLocation.lat, startLocation.lng)
+            val destination = LatLng(endLocation.lat, endLocation.lng)
+
+            MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                    .position(origin)
+                    .title(startAddress)
+                    .let { map.addMarker(it) }
+
+            MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .position(destination)
+                    .title(endAddress)
+                    .snippet("Time :${duration.humanReadable} Distance :${distance.humanReadable}")
+                    .let { map.addMarker(it) }
+
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 14f))
+        }
     }
-
-    private fun getEndLocationTitle(results: DirectionsResult) =
-            "Time :" + results.routes[0].legs[0].duration.humanReadable +
-                    " Distance :" + results.routes[0].legs[0].distance.humanReadable
-
 
     override fun onDestroy() {
         mapReadyDisposable?.dispose()

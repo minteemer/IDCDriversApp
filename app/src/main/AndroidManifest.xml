@@ -42,10 +42,8 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".services.trackingData.TrackingDataService"
-            android:enabled="true"
-            android:exported="false" />
+        <service android:name=".services.trackingData.TrackingDataService" />
+
     </application>
 
 </manifest>
