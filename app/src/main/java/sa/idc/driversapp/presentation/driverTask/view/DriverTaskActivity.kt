@@ -34,6 +34,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+import sa.idc.driversapp.repositories.preferences.AppPreferences
 
 class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
@@ -65,11 +66,13 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     override fun showTask(driverTask: DriverTask) {
-        tv_address_field.text = driverTask.address
-        tv_contacts_field.text = driverTask.contact
-        tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.dueDate)
+        tv_address_field.text = driverTask.order.destinationAddress
+        tv_contacts_field.text = driverTask.order.customerContacts
+        tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.order.dueDate)
 
-        mapReadyListener.setDestination(LatLng(driverTask.destinationLat, driverTask.destinationLng))
+        mapReadyListener.setDestination(
+                driverTask.order.destination.let { LatLng(it.latitude, it.longitude) }
+        )
     }
 
     override fun showGetTaskError() {
