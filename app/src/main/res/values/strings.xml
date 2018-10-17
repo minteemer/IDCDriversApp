@@ -18,7 +18,7 @@
     <!-- Tasks list -->
     <string name="driver_tasks_list_title">Delivery tasks</string>
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, please try later!</string>
-    <string name="tasks_list_item_due_date">Due %1$s</string>
+    <string name="tasks_list_item_due_date">Due to:\n%1$s</string>
 
 
     <!-- Task description -->
@@ -32,15 +32,16 @@
     <string name="origin_address">Origin: </string>
     <string name="destination_address">Destination: </string>
     <string name="button_default_text">Accept</string>
-    <string name="destination_field_default">Destination adress</string>
+    <string name="destination_field_default">Destination address</string>
     <string name="accept_task_button">Accept task</string>
     <string name="description">Description:</string>
-    <string name="message_after_finishing">Great task is finished</string>
+    <string name="message_after_finishing">Task is finished!</string>
     <string name="already_have">You already have an order to finish</string>
 
     <!-- DateTime formats -->
-    <string name="default_date_time_format">dd.MM.yy hh:mm</string>
+    <string name="default_date_time_format">hh:mm dd.MM.yy</string>
     <string name="status_default">In progress</string>
+    <string name="task_list_item_order_id">Order № %1$d</string>
 
 
 </resources>

@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/tv_destination"
+        android:id="@+id/tv_task_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -15,23 +16,25 @@
         app:layout_constraintEnd_toStartOf="@id/tv_due_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Pushkin st., Kolotushkin house." />
+        tools:text="Order № 12346" />
 
     <TextView
         android:id="@+id/tv_due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Due to:\n30.10.18 12:00" />
+        android:textAlignment="textEnd"
+        tools:text="Due to\n30.10.18 12:00" />
 
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="#8B0000"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
         android:text="@string/status_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_due_date" />

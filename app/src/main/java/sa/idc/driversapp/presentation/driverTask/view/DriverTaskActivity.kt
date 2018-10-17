@@ -64,41 +64,40 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     override fun setStatus(taskId: Int) {
-        if (preferences.id_of_accepted_task == taskId) {
-            accept_finish_button.text = getString(R.string.finish_task_button)
-            accept_finish_button.visibility =View.VISIBLE
-            tv_already_have.visibility =View.INVISIBLE
-            accept_finish_button.setBackgroundColor(ContextCompat.getColor(
-                    this,
-                    R.color.colorAccentDark
-            ))
-            accept_finish_button.setOnClickListener {
-                presenter.finishTask(taskId)
+        when (preferences.id_of_accepted_task) {
+            taskId -> {
+                accept_finish_button.apply {
+                    text = getString(R.string.finish_task_button)
+                    visibility = View.VISIBLE
+                    setOnClickListener { presenter.finishTask(taskId) }
+                }
+                accept_finish_button.setBackgroundColor(ContextCompat.getColor(
+                        this,
+                        R.color.colorAccentDark
+                ))
+                tv_already_have.visibility = View.GONE
             }
-        } else {
-            if (preferences.id_of_accepted_task==AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK) {
+            AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK -> {
                 accept_finish_button.apply {
                     text = getString(R.string.accept_task_button)
-                    visibility =View.VISIBLE
+                    visibility = View.VISIBLE
+                    setOnClickListener { presenter.acceptTask(taskId) }
                 }
                 accept_finish_button.setBackgroundColor(ContextCompat.getColor(
                         this,
                         R.color.colorPrimary
                 ))
 
-                tv_already_have.visibility =View.INVISIBLE
-                accept_finish_button.setOnClickListener {
-                    presenter.acceptTask(taskId)
-                }
-            }else{
-                accept_finish_button.visibility = View.INVISIBLE
-                tv_already_have.visibility =View.VISIBLE
+                tv_already_have.visibility = View.GONE
+            }
+            else -> {
+                accept_finish_button.visibility = View.GONE
+                tv_already_have.visibility = View.VISIBLE
             }
         }
     }
+
     override fun showTask(driverTask: DriverTask) {
-        //tv_origin_address.text = driverTask.order.destinationAddress
-        //tv_destination_address.text = driverTask.order.destinationAddress
         tv_contacts_field.text = driverTask.order.customerContacts
         tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.order.dueDate)
         tv_description.text = driverTask.order.description
@@ -176,7 +175,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                     .position(destination)
                     .title(endAddress)
-                    .snippet("Time :${duration.humanReadable} Distance :${distance.humanReadable}")
+                    .snippet("Time: ${duration.humanReadable}, Distance: ${distance.humanReadable}")
                     .let { map.addMarker(it) }
 
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 14f))
