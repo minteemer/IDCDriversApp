@@ -5,13 +5,19 @@ import io.reactivex.Single
 import sa.idc.driversapp.data.db.DBHelper
 import sa.idc.driversapp.data.db.tasks.TaskEntry
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
+import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksInteractor
 import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksRepository
 
 class DriverTasksRepositoryImpl : DriverTasksRepository {
 
+
     private val dummyRepo = DummyDriverTasksRepository()
 
     private val db = DBHelper.defaultStorIOBuilder.build()
+
+    override fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.acceptanceResult> =
+        dummyRepo.acceptTaskById(taskId)
+
 
     override fun getTasksList(): Single<List<DriverTask>> =
             dummyRepo.getTasksList()

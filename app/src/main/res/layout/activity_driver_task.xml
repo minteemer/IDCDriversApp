@@ -86,6 +86,18 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_contacts_field" />
+        android:layout_marginBottom="100dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_contacts_field"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/accept_task_button"
+        android:layout_width="105dp"
+        android:layout_height="52dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Accept task"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="443dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -9,4 +9,7 @@ interface DriverTasksRepository {
 
     /** @return task with given [taskId], null if such task does not exist */
     fun getTaskById(taskId: Int): Single<DriverTask?>
+
+    /**@return status of accepting the task using [taskId] */
+    fun acceptTaskById(taskId:Int): Single<DriverTasksInteractor.acceptanceResult>
 }

@@ -34,6 +34,15 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
 
     }
 
+    fun acceptTask(id: Int) {
+        interactor.acceptTaskById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                )
+    }
+
     fun destroy() {
         disposables.dispose()
     }
