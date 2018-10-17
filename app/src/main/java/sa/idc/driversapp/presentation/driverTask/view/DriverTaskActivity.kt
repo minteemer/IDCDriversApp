@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceActivity
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
@@ -60,15 +61,24 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
             accept_finish_button.text = getString(R.string.finish_task_button)
             accept_finish_button.visibility =View.VISIBLE
             tv_already_have.visibility =View.INVISIBLE
-            accept_finish_button.setBackgroundColor(Color.parseColor("#FFD700"))
+            accept_finish_button.setBackgroundColor(ContextCompat.getColor(
+                    this,
+                    R.color.colorAccentDark
+            ))
             accept_finish_button.setOnClickListener {
                 presenter.finishTask(taskId)
             }
         } else {
             if (preferences.id_of_accepted_task==AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK) {
-                accept_finish_button.text = getString(R.string.accept_task_button)
-                accept_finish_button.visibility =View.VISIBLE
-                accept_finish_button.setBackgroundColor(Color.parseColor("#9ACD32"))
+                accept_finish_button.apply {
+                    text = getString(R.string.accept_task_button)
+                    visibility =View.VISIBLE
+                }
+                accept_finish_button.setBackgroundColor(ContextCompat.getColor(
+                        this,
+                        R.color.colorPrimary
+                ))
+
                 tv_already_have.visibility =View.INVISIBLE
                 accept_finish_button.setOnClickListener {
                     presenter.acceptTask(taskId)
