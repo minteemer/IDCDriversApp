@@ -11,7 +11,7 @@ import sa.idc.driversapp.util.DateFormats
 class DriverTasksListItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     fun attach(task: DriverTask, onTaskClick: ((task: DriverTask) -> Unit)?) {
-        view.tv_status.visibility = if (task.id == AppPreferences.instance.id_of_accepted_task)
+        view.tv_status.visibility = if (task.id == AppPreferences.instance.acceptedTaskId)
             View.VISIBLE
         else
             View.GONE

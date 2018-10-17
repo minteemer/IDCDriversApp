@@ -17,7 +17,7 @@ class AppPreferences private constructor(context: Context) :
 
     var login: String by stringPreference(Keys.LOGIN, DefaultValues.LOGIN)
 
-    var id_of_accepted_task: Int by intPreference(Keys.ID_OF_ACCEPTED_TASK, DefaultValues.ID_OF_ACCEPTED_TASK)
+    var acceptedTaskId: Int by intPreference(Keys.ID_OF_ACCEPTED_TASK, DefaultValues.ID_OF_ACCEPTED_TASK)
 
     object DefaultValues {
         const val TOKEN = ""

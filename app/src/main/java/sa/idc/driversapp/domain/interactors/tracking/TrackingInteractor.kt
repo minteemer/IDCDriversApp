@@ -10,6 +10,10 @@ import java.util.*
 
 class TrackingInteractor {
 
+    companion object {
+        private const val LOG_TAG = "TrackingInteractor"
+    }
+
     private val remoteRepository: RemoteTrackingDataRepository = DummyRemoteTrackingDataRepository()
     private val localRepository: LocalTrackingDataRepository = LocalTrackingDataRepositoryImpl()
 
@@ -19,7 +23,7 @@ class TrackingInteractor {
      * can start to send the data from DB.
      */
     fun saveLocation(location: Location): Completable {
-        Log.d("TrackingInter", "loc: $location, time: ${System.currentTimeMillis()}")
+        Log.d(LOG_TAG, "loc: $location, time: ${System.currentTimeMillis()}")
         return localRepository.saveTrackingData(location, Date(System.currentTimeMillis()))
     }
 
@@ -30,6 +34,7 @@ class TrackingInteractor {
     fun sendTrackingData(): Single<Boolean> = localRepository.getTrackingData()
             .flatMap { data ->
                 data.map {
+                    Log.d(LOG_TAG, "Sending tracking data: $it")
                     remoteRepository.sendTrackingData(it.location, it.date).flatMap { result ->
                         if (result == RemoteTrackingDataRepository.SendDataResult.Success)
                             localRepository.removeTrackingData(it)

@@ -64,7 +64,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     override fun setStatus(taskId: Int) {
-        when (preferences.id_of_accepted_task) {
+        when (preferences.acceptedTaskId) {
             taskId -> {
                 accept_finish_button.apply {
                     text = getString(R.string.finish_task_button)

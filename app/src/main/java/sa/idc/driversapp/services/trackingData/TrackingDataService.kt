@@ -15,6 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.domain.interactors.tracking.TrackingInteractor
+import sa.idc.driversapp.repositories.preferences.AppPreferences
 
 class TrackingDataService : Service() {
 
@@ -45,15 +46,11 @@ class TrackingDataService : Service() {
     }
 
     private fun initLocationLogging() {
-        if (Build.VERSION.SDK_INT >= 23 &&
+        if (Build.VERSION.SDK_INT <= 23 ||
                 ContextCompat.checkSelfPermission(
                         this,
                         android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED) {
+                ) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener { saveLocation(it) }
         } else {
             stopSelf()
@@ -61,7 +58,9 @@ class TrackingDataService : Service() {
     }
 
     private fun saveLocation(location: Location?) {
-        if (location != null && System.currentTimeMillis() - lastSentDataTime > DATA_SENDING_INTERVAL_MILLS) {
+        if (location != null &&
+                System.currentTimeMillis() - lastSentDataTime > DATA_SENDING_INTERVAL_MILLS &&
+                AppPreferences.instance.acceptedTaskId != AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK) {
             trackingInteractor.saveLocation(location)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.computation())
@@ -84,7 +83,7 @@ class TrackingDataService : Service() {
                     .observeOn(Schedulers.computation())
                     .subscribe(
                             {
-                                if (moreDataAdded){
+                                if (moreDataAdded) {
                                     moreDataAdded = false
                                     sendData()
                                 }

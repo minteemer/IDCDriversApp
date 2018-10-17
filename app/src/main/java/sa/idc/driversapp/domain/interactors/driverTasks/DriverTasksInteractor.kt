@@ -22,19 +22,18 @@ class DriverTasksInteractor {
 
     fun acceptTaskById(taskId: Int) = driverTasksRepository.acceptTaskById(taskId).map { accepted ->
         if (accepted == AcceptanceResult.Success) {
-            preferences.id_of_accepted_task = taskId
+            preferences.acceptedTaskId = taskId
         }
         accepted
     }
-    fun isTaskAccepted() = preferences.id_of_accepted_task!=AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
 
-    enum class FinishiingResult{
+    enum class FinishiingResult {
         Success, ConnectionError
     }
 
-    fun finishTaskById(taskID:Int) = driverTasksRepository.finishTaskById(taskID).map {finished->
-        if (finished ==FinishiingResult.Success){
-            preferences.id_of_accepted_task = AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
+    fun finishTaskById(taskID: Int) = driverTasksRepository.finishTaskById(taskID).map { finished ->
+        if (finished == FinishiingResult.Success) {
+            preferences.acceptedTaskId = AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
         }
         finished
     }
