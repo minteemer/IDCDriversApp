@@ -24,13 +24,23 @@
     <!-- Task description -->
     <string name="driver_task_activity_title">Delivery task details</string>
     <string name="taskError">Something is wrong :(</string>
-    <string name="address">Address: </string>
+    <string name="origin">Address: </string>
     <string name="contacts">Contacts: </string>
     <string name="due_date">Due date: </string>
-
+    <string name="driver_task_connection_error">Check your internet connection</string>
+    <string name="finish_task_button">Finish task</string>
+    <string name="origin_address">Origin: </string>
+    <string name="destination_address">Destination: </string>
+    <string name="button_default_text">Accept</string>
+    <string name="destination_field_default">Destination adress</string>
+    <string name="accept_task_button">Accept task</string>
+    <string name="description">Description:</string>
+    <string name="message_after_finishing">Great task is finished</string>
+    <string name="already_have">You already have an order to finish</string>
 
     <!-- DateTime formats -->
     <string name="default_date_time_format">dd.MM.yy hh:mm</string>
+    <string name="status_default">In progress</string>
 
 
 </resources>

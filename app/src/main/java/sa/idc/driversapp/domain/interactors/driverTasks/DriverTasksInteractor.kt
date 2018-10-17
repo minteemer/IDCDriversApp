@@ -15,18 +15,28 @@ class DriverTasksInteractor {
 
     private val preferences = AppPreferences.instance
 
-    enum class acceptanceResult {
+
+    enum class AcceptanceResult {
         Success, ConnectionError
     }
 
     fun acceptTaskById(taskId: Int) = driverTasksRepository.acceptTaskById(taskId).map { accepted ->
-        if (accepted == acceptanceResult.Success) {
-            preferences.id_of_accepted_task != AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
+        if (accepted == AcceptanceResult.Success) {
+            preferences.id_of_accepted_task = taskId
         }
         accepted
     }
     fun isTaskAccepted() = preferences.id_of_accepted_task!=AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
 
-    fun finishTaskB
+    enum class FinishiingResult{
+        Success, ConnectionError
+    }
+
+    fun finishTaskById(taskID:Int) = driverTasksRepository.finishTaskById(taskID).map {finished->
+        if (finished ==FinishiingResult.Success){
+            preferences.id_of_accepted_task = AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
+        }
+        finished
+    }
 
 }

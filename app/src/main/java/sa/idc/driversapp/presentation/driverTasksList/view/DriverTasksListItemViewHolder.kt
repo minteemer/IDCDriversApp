@@ -5,16 +5,23 @@ import android.view.View
 import kotlinx.android.synthetic.main.recycler_view_item_driver_task.view.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
+import sa.idc.driversapp.repositories.preferences.AppPreferences
 import sa.idc.driversapp.util.DateFormats
 
 class DriverTasksListItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-
+    private val preference =  AppPreferences.instance
     fun attach(task: DriverTask, onTaskClick: ((task: DriverTask) -> Unit)?) {
+        if (task.id == preference.id_of_accepted_task ){
+            view.tv_status.visibility =View.VISIBLE
+        }else{
+            view.tv_status.visibility=View.INVISIBLE
+        }
         view.apply {
             tv_destination.text = task.order.destinationAddress
             tv_due_date.text = view.context.getString(
                     R.string.tasks_list_item_due_date,
                     DateFormats.defaultDateTime.format(task.order.dueDate)
+
             )
         }
 

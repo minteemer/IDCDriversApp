@@ -1,7 +1,6 @@
 package sa.idc.driversapp.repositories.driverTasks
 
 import android.location.Location
-import android.util.Log
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.domain.entities.driverTasks.Order
@@ -11,6 +10,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class DummyDriverTasksRepository : DriverTasksRepository {
+
 
     private val random = Random()
 
@@ -78,10 +78,12 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             }
             .sortedBy { it.order.dueDate }
             .toList()
-    override fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.acceptanceResult>  =
-        Single.just(DriverTasksInteractor.acceptanceResult.Success).delay(1,TimeUnit.SECONDS)
 
+    override fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.AcceptanceResult> =
+            Single.just(DriverTasksInteractor.AcceptanceResult.Success).delay(1, TimeUnit.SECONDS)
 
+    override fun finishTaskById(taskId: Int): Single<DriverTasksInteractor.FinishiingResult> =
+            Single.just(DriverTasksInteractor.FinishiingResult.Success).delay(1, TimeUnit.SECONDS)
 
     override fun getTasksList(): Single<List<DriverTask>> =
             Single.just(tasks).delay(1, TimeUnit.SECONDS)

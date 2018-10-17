@@ -15,9 +15,12 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
 
     private val db = DBHelper.defaultStorIOBuilder.build()
 
-    override fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.acceptanceResult> =
+    override fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.AcceptanceResult> =
         dummyRepo.acceptTaskById(taskId)
 
+    override fun finishTaskById(taskId: Int): Single<DriverTasksInteractor.FinishiingResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun getTasksList(): Single<List<DriverTask>> =
             dummyRepo.getTasksList()
