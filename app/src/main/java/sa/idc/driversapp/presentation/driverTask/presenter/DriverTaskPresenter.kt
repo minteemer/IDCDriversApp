@@ -1,10 +1,12 @@
 package sa.idc.driversapp.presentation.driverTask.presenter
 
+import android.location.Location
 import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksInteractor
+import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
 
 class DriverTaskPresenter(private val view: DriverTaskView) {
     companion object {
@@ -20,7 +22,10 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { task ->
-                            task?.let { view.showTask(it) } ?: run {
+                            task?.let {
+                                getRoute(it.order.origin, it.order.destination)
+                                view.showTask(it)
+                            } ?: run {
                                 Log.e(LOG_TAG, "Unknown task ID: $id")
                                 view.close()
                             }
@@ -32,6 +37,16 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 )
                 .also { disposables.add(it) }
 
+    }
+
+    private fun getRoute(origin: Location, destination: Location) {
+        GoogleMapsRepository().getPath(origin, destination)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { result ->
+                    view.showRoute(result)
+                }
+                .also { disposables.add(it) }
     }
 
     fun destroy() {

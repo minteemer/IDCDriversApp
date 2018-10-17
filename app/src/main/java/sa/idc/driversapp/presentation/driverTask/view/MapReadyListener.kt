@@ -3,16 +3,17 @@ package sa.idc.driversapp.presentation.driverTask.view
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.model.DirectionsResult
 import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
 
-class MapReadyListener : OnMapReadyCallback, SingleOnSubscribe<Pair<GoogleMap, LatLng>> {
+class MapReadyListener : OnMapReadyCallback, SingleOnSubscribe<Pair<GoogleMap, DirectionsResult>> {
 
-    private var emitter: SingleEmitter<Pair<GoogleMap, LatLng>>? = null
+    private var emitter: SingleEmitter<Pair<GoogleMap, DirectionsResult>>? = null
     private var map: GoogleMap? = null
-    private var location: LatLng? = null
+    private var location: DirectionsResult? = null
 
-    override fun subscribe(emitter: SingleEmitter<Pair<GoogleMap, LatLng>>) {
+    override fun subscribe(emitter: SingleEmitter<Pair<GoogleMap, DirectionsResult>>) {
         this.emitter = emitter
     }
 
@@ -21,7 +22,7 @@ class MapReadyListener : OnMapReadyCallback, SingleOnSubscribe<Pair<GoogleMap, L
         checkOnSuccess()
     }
 
-    fun setDestination(location: LatLng) {
+    fun setDestination(location: DirectionsResult) {
         this.location = location
         checkOnSuccess()
     }
