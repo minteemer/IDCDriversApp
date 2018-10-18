@@ -8,7 +8,6 @@ data class Order(
         val dueDate: Date,
         val origin: Location,
         val destination: Location,
-        val destinationAddress: String,
         val status: Status,
         val weight: Double,
         val worth: Long,

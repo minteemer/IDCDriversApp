@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.android.gms.maps.model.*
@@ -17,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_driver_task.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
@@ -54,13 +55,8 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
         initMap()
         setStatus(id)
-        initLocationTracking()
 
         presenter.loadTask(id)
-    }
-
-    private fun initLocationTracking() {
-
     }
 
     override fun setStatus(taskId: Int) {
@@ -77,7 +73,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                 ))
                 tv_already_have.visibility = View.GONE
             }
-            AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK -> {
+            AppPreferences.Default.ID_OF_ACCEPTED_TASK -> {
                 accept_finish_button.apply {
                     text = getString(R.string.accept_task_button)
                     visibility = View.VISIBLE
@@ -133,7 +129,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         finish()
     }
 
-    private var mapReadyDisposable: Disposable? = null
+    private var disposables = CompositeDisposable()
 
     override fun showRoute(directions: DirectionsResult) {
         mapReadyListener.setDestination(directions)
@@ -144,13 +140,24 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                 .findFragmentById(R.id.task_description_map) as SupportMapFragment
         mapFragment.getMapAsync(mapReadyListener)
 
-        mapReadyDisposable = Single.create(mapReadyListener)
+        Single.create(mapReadyListener)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { (map, directions) ->
                     this.map = map
+
+                    try {
+                        map.apply {
+                            isMyLocationEnabled = true
+                            uiSettings.isMyLocationButtonEnabled = true
+                        }
+                    } catch (e: SecurityException) {
+                        Log.e("DriverTaskActivity", "Map initialising error", e)
+                    }
+
                     addMarkersToMap(directions)
                     addPolyline(directions)
                 }
+                .also { disposables.add(it) }
     }
 
     private fun addPolyline(results: DirectionsResult) {
@@ -183,7 +190,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     override fun onDestroy() {
-        mapReadyDisposable?.dispose()
+        disposables.dispose()
         presenter.destroy()
         super.onDestroy()
     }

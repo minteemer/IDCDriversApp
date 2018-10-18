@@ -33,7 +33,7 @@ class DriverTasksInteractor {
 
     fun finishTaskById(taskID: Int) = driverTasksRepository.finishTaskById(taskID).map { finished ->
         if (finished == FinishiingResult.Success) {
-            preferences.acceptedTaskId = AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK
+            preferences.acceptedTaskId = AppPreferences.Default.ID_OF_ACCEPTED_TASK
         }
         finished
     }

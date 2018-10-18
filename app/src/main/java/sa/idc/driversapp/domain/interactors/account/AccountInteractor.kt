@@ -22,5 +22,4 @@ class AccountInteractor {
         loginResult
     }
 
-    fun isLoggedIn() = preferences.token != AppPreferences.DefaultValues.TOKEN
 }

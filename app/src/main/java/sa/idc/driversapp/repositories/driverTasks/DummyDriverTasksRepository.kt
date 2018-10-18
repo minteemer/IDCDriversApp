@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class DummyDriverTasksRepository : DriverTasksRepository {
 
 
-    private val random = Random()
+    private val random = Random(123)
 
     private fun getRandomDate() =
             Date(System.currentTimeMillis() + random.nextInt(2000000000))
@@ -36,13 +36,12 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             "8 (932) 604-21-46"
     )
 
-    private val addresses = listOf(
-            "Via Reggio Emilia, 29, 00198 Roma RM, Italy",
-            "Via Flaminia, 359-355, 00196 Roma RM, Italy",
-            "Via degli Olimpionici, 71, 00196 Roma RM, Italy",
-            "Via di Villa Emiliani, 7-3, 00197 Roma RM, Italy",
-            "Via Giovanni Battista Pergolesi, 9, 00198 Roma RM, Italy",
-            "Viale dei Parioli, 16-36, 00197 Roma RM, Italy"
+    private val descriptions = listOf(
+            "Teddy bear",
+            "Giant red spinner",
+            "IPhone 11 1TB",
+            "Elbrus CPU",
+            "Xiaomi powerbank"
     )
 
     private val locations = listOf(
@@ -56,26 +55,44 @@ class DummyDriverTasksRepository : DriverTasksRepository {
 
     private fun <T> List<T>.random() = get(random.nextInt(size))
 
-    private var i = 0
-    private val tasks = addresses.asSequence()
-            .map { address ->
+    private var i = 2234
+    private val tasks = descriptions.asSequence()
+            .map { description ->
+                val originId = random.nextInt(locations.size)
+                val destinationId = (originId + 1) % locations.size
                 DriverTask(
                         i++,
                         DriverTask.Status.Pending,
                         Order(
                                 1000 + i++,
                                 getRandomDate(),
-                                locations.random().let { getLocation(it.first, it.second) },
-                                locations.random().let { getLocation(it.first, it.second) },
-                                address,
+                                locations[originId].let { getLocation(it.first, it.second) },
+                                locations[destinationId].let { getLocation(it.first, it.second) },
                                 Order.Status.PendingConfirmation,
                                 10.5,
                                 100_00,
-                                "Test order description",
+                                description,
                                 contacts.random()
                         )
                 )
             }
+            .plus(
+                    DriverTask(
+                            i,
+                            DriverTask.Status.Pending,
+                            Order(
+                                    3012,
+                                    Date(System.currentTimeMillis() + 1000),
+                                    getLocation(55.753380, 48.741618),
+                                    getLocation(55.746784, 48.743807),
+                                    Order.Status.PendingConfirmation,
+                                    10.5,
+                                    100_00,
+                                    "Box of cookies",
+                                    contacts.random()
+                            )
+                    )
+            )
             .sortedBy { it.order.dueDate }
             .toList()
 

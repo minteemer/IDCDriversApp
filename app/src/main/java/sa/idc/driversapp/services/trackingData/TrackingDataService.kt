@@ -20,8 +20,7 @@ import sa.idc.driversapp.repositories.preferences.AppPreferences
 class TrackingDataService : Service() {
 
     companion object {
-        const val DATA_SENDING_INTERVAL_MILLS = 30_000
-        const val LOG_TAG = "LocationService"
+        private const val LOG_TAG = "LocationService"
 
         fun start(context: Context) {
             context.startService(Intent(context, TrackingDataService::class.java))
@@ -34,8 +33,6 @@ class TrackingDataService : Service() {
     private var sendDataDisposable: Disposable? = null
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    private var lastSentDataTime = -1
 
     override fun onCreate() {
         super.onCreate()
@@ -51,16 +48,18 @@ class TrackingDataService : Service() {
                         this,
                         android.Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { saveLocation(it) }
+
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                location?.let { saveLocation(it) }
+            }
+
         } else {
             stopSelf()
         }
     }
 
-    private fun saveLocation(location: Location?) {
-        if (location != null &&
-                System.currentTimeMillis() - lastSentDataTime > DATA_SENDING_INTERVAL_MILLS &&
-                AppPreferences.instance.acceptedTaskId != AppPreferences.DefaultValues.ID_OF_ACCEPTED_TASK) {
+    private fun saveLocation(location: Location) {
+        if (AppPreferences.instance.acceptedTaskId != AppPreferences.Default.ID_OF_ACCEPTED_TASK) {
             trackingInteractor.saveLocation(location)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.computation())
@@ -70,7 +69,6 @@ class TrackingDataService : Service() {
                     )
                     .also { saveLocationDisposables.add(it) }
         }
-
     }
 
 

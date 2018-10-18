@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.launcher_activity.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.presentation.driverTasksList.view.DriverTasksListActivity
@@ -58,7 +57,7 @@ class LauncherActivity : AppCompatActivity() {
     private fun initServicesAndFinish() {
         TrackingDataService.start(this)
 
-        if (AppPreferences.instance.token != AppPreferences.DefaultValues.TOKEN){
+        if (AppPreferences.instance.token != AppPreferences.Default.TOKEN){
             DriverTasksListActivity.start(this)
         } else {
             LoginActivity.start(this)
