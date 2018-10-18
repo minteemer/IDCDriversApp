@@ -13,15 +13,15 @@ class DummyAccountRepositoryImpl : AccountRepository {
     }
 
     override fun login(login: String, password: String)
-            : Single<Pair<AccountInteractor.LoginResult, String>> =
+            : Single<Pair<AccountRepository.LoginResult, String>> =
             when (login) {
                 LOGIN ->
                     if (PASSWORD == password)
-                        AccountInteractor.LoginResult.Success
+                        AccountRepository.LoginResult.Success
                     else
-                        AccountInteractor.LoginResult.WrongPassword
-                CONN_ERROR -> AccountInteractor.LoginResult.ConnectionError
-                else -> AccountInteractor.LoginResult.WrongPassword
+                        AccountRepository.LoginResult.WrongPassword
+                CONN_ERROR -> AccountRepository.LoginResult.ConnectionError
+                else -> AccountRepository.LoginResult.WrongPassword
             }.let { Single.just(it to "test-token") }
 
 }

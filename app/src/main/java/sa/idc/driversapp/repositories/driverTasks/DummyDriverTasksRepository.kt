@@ -33,7 +33,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             "8(948)175-38-51",
             "8(956)469-38-73",
             "8(926)286-84-43",
-            "8 (932) 604-21-46"
+            "8(932)604-21-46"
     )
 
     private val descriptions = listOf(

@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun showErrorMessage() {
-        Toast.makeText(this, "Login error", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Connection error, please try later", Toast.LENGTH_LONG).show()
     }
 
     override fun showConnectionErrorMessage() {
@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun showWrongPasswordMessage() {
-        Toast.makeText(this, "Wrong password", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Wrong login or password!", Toast.LENGTH_LONG).show()
     }
 
     override fun openTaskList() {
