@@ -39,7 +39,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
     private val descriptions = listOf(
             "Teddy bear",
             "Giant red spinner",
-            "IPhone 11 1TB",
+            "IPhone 11",
             "Elbrus CPU",
             "Xiaomi powerbank"
     )
@@ -78,7 +78,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             }
             .plus(
                     DriverTask(
-                            i,
+                            i++,
                             DriverTask.Status.Pending,
                             Order(
                                     3012,

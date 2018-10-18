@@ -32,8 +32,9 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
 
         initTasksRecycler()
 
-        swipe_to_refresh_tasks_list.setOnRefreshListener {
-            presenter.refreshTasks()
+        swipe_to_refresh_tasks_list.apply {
+            setColorSchemeResources(R.color.colorAccent)
+            setOnRefreshListener { presenter.refreshTasks() }
         }
 
         presenter.refreshTasks()
