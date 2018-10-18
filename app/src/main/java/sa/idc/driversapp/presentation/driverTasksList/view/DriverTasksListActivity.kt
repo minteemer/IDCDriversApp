@@ -53,7 +53,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
             clear()
             addAll(tasks)
         }
-        rv_driver_tasks_list.adapter.notifyDataSetChanged()
+        rv_driver_tasks_list.adapter?.notifyDataSetChanged()
     }
 
     override fun showGetTasksError() {
