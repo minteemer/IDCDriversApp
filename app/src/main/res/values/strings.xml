@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">IDC Drivers</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <!-- Launcher -->
     <string name="launching">Launching…</string>
     <string name="you_must_allow_to_use_location">You must allow the application to use your location to use this app!</string>
@@ -19,7 +22,7 @@
     <string name="driver_tasks_list_title">Delivery tasks</string>
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, please try later!</string>
     <string name="tasks_list_item_due_date">Due to:\n%1$s</string>
-
+    <string name="task_list_item_order_id">Order № %1$d</string>
 
     <!-- Task description -->
     <string name="driver_task_activity_title">Delivery task details</string>
@@ -37,15 +40,12 @@
     <string name="description">Description:</string>
     <string name="message_after_finishing">Task is finished!</string>
     <string name="already_have">You already have an order to finish</string>
+    <string name="question_accept">Are you sure you want to start the task?</string>
+    <string name="finish_question">Are you sure you have finished the task?</string>
+
 
     <!-- DateTime formats -->
     <string name="default_date_time_format">hh:mm dd.MM.yy</string>
     <string name="status_default">In progress</string>
-    <string name="task_list_item_order_id">Order № %1$d</string>
-    <string name="question_accept">Do you want to accept the task</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="finish_question">Do you want to finis the task?</string>
-
 
 </resources>

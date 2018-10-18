@@ -53,31 +53,32 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
         interactor.acceptTaskById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({accepted->
-                    if(accepted==DriverTasksInteractor.AcceptanceResult.Success){
-                        view.setStatus(id)
-                    }else{
-                        view.showConnectionError()
-                        Log.e("DriverTaskPresenter","Connection Error while accepting task")
-                    }
-                },
-                {
-                    Log.e("DriverTaskPresenter", "Error while accepting task", it)
-                    view.showGetTaskError()
-                }
-
+                .subscribe(
+                        { accepted ->
+                            if (accepted == DriverTasksInteractor.AcceptanceResult.Success) {
+                                view.setStatus(id)
+                                view.showAcceptedMessage()
+                            } else {
+                                view.showConnectionError()
+                                Log.e("DriverTaskPresenter", "Connection Error while accepting task")
+                            }
+                        },
+                        {
+                            Log.e("DriverTaskPresenter", "Error while accepting task", it)
+                            view.showGetTaskError()
+                        }
                 ).also { disposables.add(it) }
     }
 
-    fun finishTask(id:Int){
+    fun finishTask(id: Int) {
         interactor.finishTaskById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({finished->
-                    if (finished==DriverTasksInteractor.FinishiingResult.Success){
-                       view.finishTask()
+                .subscribe({ finished ->
+                    if (finished == DriverTasksInteractor.FinishiingResult.Success) {
+                        view.finishTask()
                     }
-                },{}).also { disposables.add(it) }
+                }, {}).also { disposables.add(it) }
     }
 
     fun destroy() {

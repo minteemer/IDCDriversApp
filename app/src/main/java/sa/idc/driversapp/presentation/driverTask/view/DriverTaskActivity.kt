@@ -61,64 +61,62 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         presenter.loadTask(id)
     }
 
-    override fun showAcceptedMessage(){
+    override fun showAcceptedMessage() {
         Toast.makeText(
                 this,
                 "Task is accepted",
                 Toast.LENGTH_SHORT
         ).show()
     }
+
     override fun setStatus(taskId: Int) {
+        val context = this
         if (preferences.acceptedTaskId == taskId) {
-            accept_finish_button.text = getString(R.string.finish_task_button)
-            accept_finish_button.visibility =View.VISIBLE
-            tv_already_have.visibility =View.INVISIBLE
-            accept_finish_button.setBackgroundColor(ContextCompat.getColor(
-                    this,
-                    R.color.colorAccentDark
-            ))
-            accept_finish_button.setOnClickListener {
-                val builder = AlertDialog.Builder(this)
-                builder.setMessage(R.string.finish_question)
-                builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
-                    presenter.finishTask(taskId)
-                })
-                builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
+            tv_already_have.visibility = View.GONE
 
-                })
-                val dialog = builder.create()
-                dialog.show()
-
+            accept_finish_button.apply {
+                text = getString(R.string.finish_task_button)
+                visibility = View.VISIBLE
+                setBackgroundColor(ContextCompat.getColor(
+                        context,
+                        R.color.colorAccentDark
+                ))
+                setOnClickListener {
+                    AlertDialog.Builder(context)
+                            .setTitle(R.string.finish_question)
+                            .setPositiveButton(R.string.yes) { _, _ ->
+                                presenter.finishTask(taskId)
+                            }
+                            .setNegativeButton(R.string.no) { _, _ -> }
+                            .create()
+                            .show()
+                }
             }
         } else {
-            if (preferences.acceptedTaskId==AppPreferences.Default.ID_OF_ACCEPTED_TASK) {
+            if (preferences.acceptedTaskId == AppPreferences.Default.ID_OF_ACCEPTED_TASK) {
                 accept_finish_button.apply {
                     text = getString(R.string.accept_task_button)
-                    visibility =View.VISIBLE
+                    visibility = View.VISIBLE
+                    setBackgroundColor(ContextCompat.getColor(
+                            context,
+                            R.color.colorPrimary
+                    ))
+                    setOnClickListener {
+                        AlertDialog.Builder(context)
+                                .setTitle(R.string.question_accept)
+                                .setPositiveButton(R.string.yes) { _, _ ->
+                                    presenter.acceptTask(taskId)
+                                }
+                                .setNegativeButton(R.string.no) { _, _ -> }
+                                .create()
+                                .show()
+                    }
                 }
-                accept_finish_button.setBackgroundColor(ContextCompat.getColor(
-                        this,
-                        R.color.colorPrimary
-                ))
 
-                tv_already_have.visibility =View.INVISIBLE
-                accept_finish_button.setOnClickListener {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setMessage(R.string.question_accept)
-                    builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
-                        presenter.acceptTask(taskId)
-                    })
-                    builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
-
-                    })
-                    val dialog = builder.create()
-                    dialog.show()
-
-
-                }
-            }else{
-                accept_finish_button.visibility = View.INVISIBLE
-                tv_already_have.visibility =View.VISIBLE
+                tv_already_have.visibility = View.GONE
+            } else {
+                accept_finish_button.visibility = View.GONE
+                tv_already_have.visibility = View.VISIBLE
             }
         }
     }

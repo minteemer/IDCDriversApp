@@ -25,5 +25,6 @@ interface DriverTaskView {
     /**Finish task after acknowledgment from server*/
     fun finishTask()
 
+    /** Tell user that task was successfully accepted */
     fun showAcceptedMessage()
 }
