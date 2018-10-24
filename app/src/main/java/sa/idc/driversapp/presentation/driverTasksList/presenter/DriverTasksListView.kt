@@ -10,7 +10,7 @@ interface DriverTasksListView {
     fun showGetTasksError()
 
     /** Show user detailed information about a task  with given [taskId] */
-    fun openTask(taskId: Int)
+    fun openTask(taskId: Long)
 
     /** Start task refreshing animation */
     fun startTasksRefresh()

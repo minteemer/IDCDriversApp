@@ -11,7 +11,7 @@ class DriverTasksInteractor {
 
     fun getTasksList(): Single<List<DriverTask>> = driverTasksRepository.getTasksList()
 
-    fun getTaskByID(taskId: Int): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
+    fun getTaskByID(taskId: Long): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
 
     private val preferences = AppPreferences.instance
 
@@ -20,7 +20,7 @@ class DriverTasksInteractor {
         Success, ConnectionError
     }
 
-    fun acceptTaskById(taskId: Int) = driverTasksRepository.acceptTaskById(taskId).map { accepted ->
+    fun acceptTaskById(taskId: Long) = driverTasksRepository.acceptTaskById(taskId).map { accepted ->
         if (accepted == AcceptanceResult.Success) {
             preferences.acceptedTaskId = taskId
         }
@@ -31,7 +31,7 @@ class DriverTasksInteractor {
         Success, ConnectionError
     }
 
-    fun finishTaskById(taskID: Int) = driverTasksRepository.finishTaskById(taskID).map { finished ->
+    fun finishTaskById(taskID: Long) = driverTasksRepository.finishTaskById(taskID).map { finished ->
         if (finished == FinishiingResult.Success) {
             preferences.acceptedTaskId = AppPreferences.Default.ID_OF_ACCEPTED_TASK
         }

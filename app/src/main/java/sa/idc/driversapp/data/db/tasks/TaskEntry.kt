@@ -8,8 +8,8 @@ import sa.idc.driversapp.repositories.driverTasks.DummyDriverTasksRepository
 
 @StorIOSQLiteType(table = TaskEntry.Table.NAME)
 data class TaskEntry @StorIOSQLiteCreator constructor(
-        @StorIOSQLiteColumn(key = true, name = Table.Columns.ID) val id: Int,
-        @StorIOSQLiteColumn(name = Table.Columns.STATUS) val orderId: Int,
+        @StorIOSQLiteColumn(key = true, name = Table.Columns.ID) val id: Long,
+        @StorIOSQLiteColumn(name = Table.Columns.STATUS) val orderId: Long,
         @StorIOSQLiteColumn(name = Table.Columns.ORDER_ID) val status: String
 ) {
     object Table {

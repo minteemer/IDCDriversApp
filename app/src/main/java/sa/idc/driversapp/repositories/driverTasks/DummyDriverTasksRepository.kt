@@ -58,7 +58,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
 
     private fun <T> List<T>.random() = get(random.nextInt(size))
 
-    private var i = 2234
+    private var i = 2234L
     private val tasks = descriptions.asSequence()
             .map { description ->
                 val originId = random.nextInt(locations.size)
@@ -99,18 +99,18 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             .sortedBy { it.order.dueDate }
             .toList()
 
-    override fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.AcceptanceResult> =
+    override fun acceptTaskById(taskId: Long): Single<DriverTasksInteractor.AcceptanceResult> =
             Single.just(DriverTasksInteractor.AcceptanceResult.Success).delay(1, TimeUnit.SECONDS)
 
-    override fun finishTaskById(taskId: Int): Single<DriverTasksInteractor.FinishiingResult> =
+    override fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishiingResult> =
             Single.just(DriverTasksInteractor.FinishiingResult.Success).delay(1, TimeUnit.SECONDS)
 
     override fun getTasksList(): Single<List<DriverTask>> =
             Single.just(tasks).delay(1, TimeUnit.SECONDS)
 
-    override fun getTaskById(taskId: Int): Single<DriverTask?> =
+    override fun getTaskById(taskId: Long): Single<DriverTask?> =
             Single.just(tasks.firstOrNull { it.id == taskId })
 
-    fun getOrderById(orderId: Int): Order? =
+    fun getOrderById(orderId: Long): Order? =
             tasks.firstOrNull { it.order.id == orderId }?.order
 }

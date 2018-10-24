@@ -33,7 +33,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     companion object {
         private const val TASK_ID_INTENT_FIELD = "task_id"
 
-        fun start(context: Context, taskId: Int) {
+        fun start(context: Context, taskId: Long) {
             Intent(context, DriverTaskActivity::class.java).apply {
                 putExtra(TASK_ID_INTENT_FIELD, taskId)
             }.also { context.startActivity(it) }
@@ -51,7 +51,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         setContentView(R.layout.activity_driver_task)
         setTitle(R.string.driver_task_activity_title)
 
-        val id = intent.getIntExtra(TASK_ID_INTENT_FIELD, -1)
+        val id = intent.getLongExtra(TASK_ID_INTENT_FIELD, -1L)
 
         initMap()
         setStatus(id)
@@ -59,7 +59,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         presenter.loadTask(id)
     }
 
-    override fun setStatus(taskId: Int) {
+    override fun setStatus(taskId: Long) {
         when (preferences.acceptedTaskId) {
             taskId -> {
                 accept_finish_button.apply {

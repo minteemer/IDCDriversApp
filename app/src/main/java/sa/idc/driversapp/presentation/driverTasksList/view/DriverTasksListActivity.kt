@@ -73,7 +73,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
         swipe_to_refresh_tasks_list.isRefreshing = false
     }
 
-    override fun openTask(taskId: Int) {
+    override fun openTask(taskId: Long) {
         DriverTaskActivity.start(this, taskId)
     }
 

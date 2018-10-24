@@ -16,7 +16,7 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
     private val interactor = DriverTasksInteractor()
     private val disposables = CompositeDisposable()
 
-    fun loadTask(id: Int) {
+    fun loadTask(id: Long) {
         interactor.getTaskByID(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -49,7 +49,7 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 .also { disposables.add(it) }
     }
 
-    fun acceptTask(id: Int) {
+    fun acceptTask(id: Long) {
         interactor.acceptTaskById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,7 +69,7 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 ).also { disposables.add(it) }
     }
 
-    fun finishTask(id:Int){
+    fun finishTask(id:Long){
         interactor.finishTaskById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

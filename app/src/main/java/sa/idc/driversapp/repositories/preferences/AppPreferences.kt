@@ -17,12 +17,12 @@ class AppPreferences private constructor(context: Context) :
 
     var login: String by stringPreference(Keys.LOGIN, Default.LOGIN)
 
-    var acceptedTaskId: Int by intPreference(Keys.ID_OF_ACCEPTED_TASK, Default.ID_OF_ACCEPTED_TASK)
+    var acceptedTaskId: Long by longPreference(Keys.ID_OF_ACCEPTED_TASK, Default.ID_OF_ACCEPTED_TASK)
 
     object Default {
         const val TOKEN = ""
         const val LOGIN = ""
-        const val ID_OF_ACCEPTED_TASK = -1
+        const val ID_OF_ACCEPTED_TASK = -1L
     }
 
     private object Keys {

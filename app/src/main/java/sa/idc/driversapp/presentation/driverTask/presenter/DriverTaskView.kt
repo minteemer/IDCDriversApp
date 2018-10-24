@@ -20,7 +20,7 @@ interface DriverTaskView {
     fun showConnectionError()
 
     /**Set status to the task in view*/
-    fun setStatus(taskId: Int)
+    fun setStatus(taskId: Long)
 
     /**Finish task after acknowledgment from server*/
     fun finishTask()

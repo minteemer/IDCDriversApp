@@ -4,7 +4,7 @@ import android.location.Location
 import java.util.*
 
 data class Order(
-        val id: Int,
+        val id: Long,
         val dueDate: Date,
         val origin: Location,
         val destination: Location,
