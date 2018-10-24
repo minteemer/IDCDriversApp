@@ -29,12 +29,11 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         Log.d(LOG_TAG, "Firebase message ${message.messageId} received: ${message.data}")
 
-        sendNewTaskNotification(message)
+        sendNewTaskNotification()
     }
 
 
-    private fun sendNewTaskNotification(message: RemoteMessage) {
-
+    private fun sendNewTaskNotification() {
         val intent = Intent(applicationContext, DriverTasksListActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
@@ -50,7 +49,7 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
         val channelId = getString(R.string.new_tasks_assigned_channel_id)
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_logo)
+                .setSmallIcon(R.drawable.ic_notification_icon)
                 .setContentTitle(getString(R.string.new_task_notification_title))
                 .setContentText(getString(R.string.new_task_notification_text))
                 .setAutoCancel(true)
