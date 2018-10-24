@@ -1,10 +1,11 @@
-package sa.idc.driversapp.presentation.loginIn.presenter;
+package sa.idc.driversapp.presentation.loginIn.presenter
 
 import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.domain.interactors.account.AccountInteractor
+import sa.idc.driversapp.domain.interactors.account.AccountRepository
 
 class LoginPresenter(private val view: LoginView) {
     private val interactor = AccountInteractor()
@@ -18,9 +19,9 @@ class LoginPresenter(private val view: LoginView) {
                 .subscribe(
                         {
                             when (it) {
-                                AccountInteractor.LoginResult.Success -> view.openTaskList()
-                                AccountInteractor.LoginResult.WrongPassword -> view.showWrongPasswordMessage()
-                                AccountInteractor.LoginResult.ConnectionError -> view.showConnectionErrorMessage()
+                                AccountRepository.LoginResult.Success -> view.openTaskList()
+                                AccountRepository.LoginResult.WrongPassword -> view.showWrongPasswordMessage()
+                                AccountRepository.LoginResult.ConnectionError -> view.showConnectionErrorMessage()
                                 else -> view.showErrorMessage()
                             }
                         },
