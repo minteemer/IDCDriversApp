@@ -9,9 +9,14 @@ interface AccountRepository {
     }
 
     /**
-     * Try to login into account with given [login] and [password]
+     * Try to login into account with given [login] and [password],
+     * sends [firebaseToken] of the device to the server.
      * @return [Single] with [AccountRepository.LoginResult] and token,
      * if result is [AccountRepository.LoginResult.Success]
      */
-    fun login(login: String, password: String): Single<Pair<LoginResult, String>>
+    fun login(
+            login: String,
+            password: String,
+            firebaseToken: String
+    ): Single<Pair<LoginResult, String>>
 }
