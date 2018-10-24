@@ -3,11 +3,9 @@ package sa.idc.driversapp.presentation.driverTasksList.view
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.widget.Toast
@@ -18,7 +16,6 @@ import sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListPresenter
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListView
 import android.view.MenuItem
-import sa.idc.driversapp.IDCDriversApp
 import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
 import sa.idc.driversapp.util.AppPermissions
 
