@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "579732705059",
+    "firebase_url": "https://idc-drivers.firebaseio.com",
+    "project_id": "idc-drivers",
+    "storage_bucket": "idc-drivers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579732705059:android:fc8519d36fa6cbf6",
+        "android_client_info": {
+          "package_name": "sa.idc.driversapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579732705059-bf3tl3sgcd6bcacepmiob935p0846qfq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCrilADgbmxz5ew7NvWtZDROn0Ff5Ek0k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
