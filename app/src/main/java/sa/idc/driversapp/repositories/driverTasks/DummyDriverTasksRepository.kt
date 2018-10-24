@@ -1,7 +1,10 @@
 package sa.idc.driversapp.repositories.driverTasks
 
 import android.location.Location
+import android.util.Log
 import io.reactivex.Single
+import sa.idc.driversapp.data.network.ApiConstructor
+import sa.idc.driversapp.data.network.api.TasksAPI
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.domain.entities.driverTasks.Order
 import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksInteractor
@@ -33,7 +36,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
             "8(948)175-38-51",
             "8(956)469-38-73",
             "8(926)286-84-43",
-            "8 (932) 604-21-46"
+            "8(932)604-21-46"
     )
 
     private val descriptions = listOf(
