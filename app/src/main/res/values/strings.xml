@@ -47,5 +47,7 @@
     <!-- DateTime formats -->
     <string name="default_date_time_format">hh:mm dd.MM.yy</string>
     <string name="status_default">In progress</string>
+    <string name="call_support_menu_item_text">Call support</string>
+    <string name="log_out_menu_item_text">Log out</string>
 
 </resources>

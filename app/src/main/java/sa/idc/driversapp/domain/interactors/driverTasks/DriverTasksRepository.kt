@@ -15,4 +15,8 @@ interface DriverTasksRepository {
 
     /**@return status of finishing the task using [taskID]*/
     fun finishTaskById(taskId: Int):Single<DriverTasksInteractor.FinishiingResult>
+
+    /**@return phone number of operator*/
+    fun getOperatorPhoneNumber():Single<String>
+
 }

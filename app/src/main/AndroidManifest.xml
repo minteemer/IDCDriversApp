@@ -4,7 +4,7 @@
     package="sa.idc.driversapp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:name=".IDCDriversApp"
         android:allowBackup="false"

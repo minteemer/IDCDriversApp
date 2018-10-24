@@ -13,6 +13,7 @@ class DriverTasksInteractor {
 
     fun getTaskByID(taskId: Int): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
 
+    fun getOperatorPhoneNumber():Single<String> =driverTasksRepository.getOperatorPhoneNumber()
     private val preferences = AppPreferences.instance
 
 

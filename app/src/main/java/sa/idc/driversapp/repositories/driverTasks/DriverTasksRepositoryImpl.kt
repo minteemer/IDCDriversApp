@@ -11,6 +11,7 @@ import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksRepository
 class DriverTasksRepositoryImpl : DriverTasksRepository {
 
 
+
     private val dummyRepo = DummyDriverTasksRepository()
 
     private val db = DBHelper.defaultStorIOBuilder.build()
@@ -19,6 +20,9 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
         dummyRepo.acceptTaskById(taskId)
 
     override fun finishTaskById(taskId: Int): Single<DriverTasksInteractor.FinishiingResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    override fun getOperatorPhoneNumber(): Single<String> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

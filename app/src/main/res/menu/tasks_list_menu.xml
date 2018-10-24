@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/call_support_item"
+        android:title="@string/call_support_menu_item_text"
+        />
+    <item
+        android:id="@+id/log_out_item"
+        android:title="@string/log_out_menu_item_text"/>
+</menu>

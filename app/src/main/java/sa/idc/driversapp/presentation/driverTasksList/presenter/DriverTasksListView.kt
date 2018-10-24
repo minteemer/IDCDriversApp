@@ -17,4 +17,7 @@ interface DriverTasksListView {
 
     /** Finish task refreshing animation */
     fun finishTasksRefresh()
+
+    /**Call to support */
+    fun callSupportNumber(number: String)
 }
