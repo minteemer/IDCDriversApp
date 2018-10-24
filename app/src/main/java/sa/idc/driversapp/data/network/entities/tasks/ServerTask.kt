@@ -13,7 +13,7 @@ data class ServerTask(
     fun toDomainEntity(): DriverTask =
             DriverTask(
                     id,
-                    when(status){
+                    when (status) {
                         "COMPLETE" -> DriverTask.Status.Complete
                         "IN_PROGRESS" -> DriverTask.Status.InProgress
                         "PENDING" -> DriverTask.Status.Pending
