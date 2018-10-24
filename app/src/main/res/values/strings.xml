@@ -4,6 +4,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <!-- Support -->
+    <string name="default_support_operator_number">81234567890</string>
+
     <!-- Launcher -->
     <string name="launching">Launching…</string>
     <string name="you_must_allow_to_use_location">You must allow the application to use your location to use this app!</string>
@@ -23,6 +26,9 @@
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, please try later!</string>
     <string name="tasks_list_item_due_date">Due to:\n%1$s</string>
     <string name="task_list_item_order_id">Order № %1$d</string>
+
+    <string name="call_support_menu_item_text">Call support</string>
+    <string name="log_out_menu_item_text">Log out</string>
 
     <!-- Task description -->
     <string name="driver_task_activity_title">Delivery task details</string>
@@ -47,7 +53,5 @@
     <!-- DateTime formats -->
     <string name="default_date_time_format">hh:mm dd.MM.yy</string>
     <string name="status_default">In progress</string>
-    <string name="call_support_menu_item_text">Call support</string>
-    <string name="log_out_menu_item_text">Log out</string>
 
 </resources>

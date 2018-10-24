@@ -13,7 +13,6 @@ class DriverTasksInteractor {
 
     fun getTaskByID(taskId: Int): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
 
-    fun getOperatorPhoneNumber():Single<String> =driverTasksRepository.getOperatorPhoneNumber()
     private val preferences = AppPreferences.instance
 
 
@@ -21,12 +20,13 @@ class DriverTasksInteractor {
         Success, ConnectionError
     }
 
-    fun acceptTaskById(taskId: Int) = driverTasksRepository.acceptTaskById(taskId).map { accepted ->
-        if (accepted == AcceptanceResult.Success) {
-            preferences.acceptedTaskId = taskId
-        }
-        accepted
-    }
+    fun acceptTaskById(taskId: Int): Single<AcceptanceResult> =
+            driverTasksRepository.acceptTaskById(taskId).map { accepted ->
+                if (accepted == AcceptanceResult.Success) {
+                    preferences.acceptedTaskId = taskId
+                }
+                accepted
+            }
 
     enum class FinishiingResult {
         Success, ConnectionError

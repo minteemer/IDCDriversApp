@@ -22,4 +22,11 @@ class AccountInteractor {
         loginResult
     }
 
+    fun logout() {
+        preferences.apply {
+            login = AppPreferences.Default.LOGIN
+            token = AppPreferences.Default.TOKEN
+        }
+    }
+
 }

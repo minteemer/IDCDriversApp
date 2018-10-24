@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -19,7 +18,9 @@ import sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListPresenter
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListView
 import android.view.MenuItem
+import sa.idc.driversapp.IDCDriversApp
 import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
+import sa.idc.driversapp.util.AppPermissions
 
 
 class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
@@ -33,6 +34,10 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
     private val presenter = DriverTasksListPresenter(this)
 
     private val tasksList = ArrayList<DriverTask>()
+
+    private object RequestCodes{
+        const val CALL_PERMISSION = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,44 +53,23 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
 
         presenter.refreshTasks()
     }
-    override fun callSupportNumber(number: String) {
-        val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
 
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.CALL_PHONE),
-                    123)
-        } else {
-            startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$number")))
-        }
-    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.tasks_list_menu, menu)
+        menuInflater.inflate(R.menu.tasks_list_menu, menu)
         return true
     }
-    fun callToOperator(){
-        presenter.callToOperator()
 
-    }
-    private fun logOut(){
-        presenter.logOut()
-        LoginActivity.start(this);
-        finish()
-    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        when (item.getItemId()) {
+        return when (item.itemId) {
             R.id.call_support_item -> {
-                callToOperator()
-                return true
+                presenter.callToOperator()
+                true
             }
             R.id.log_out_item -> {
-                logOut()
-                return true
+                presenter.logOut()
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -96,6 +80,22 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
         }
     }
 
+
+    override fun callSupportNumber(number: String) {
+        if (!AppPermissions.permissionIsGranted(Manifest.permission.CALL_PHONE)) {
+            AppPermissions.requestPermission(
+                    this,
+                    Manifest.permission.CALL_PHONE,
+                    RequestCodes.CALL_PERMISSION
+            )
+        } else {
+            startCallActivity(number)
+        }
+    }
+
+    private fun startCallActivity(number: String){
+        startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$number")))
+    }
 
     override fun showTasksList(tasks: List<DriverTask>) {
         tasksList.apply {
@@ -113,7 +113,6 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
         ).show()
     }
 
-
     override fun startTasksRefresh() {
         swipe_to_refresh_tasks_list.isRefreshing = true
     }
@@ -124,6 +123,11 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
 
     override fun openTask(taskId: Int) {
         DriverTaskActivity.start(this, taskId)
+    }
+
+    override fun logOut() {
+        LoginActivity.start(this)
+        finish()
     }
 
     override fun onDestroy() {

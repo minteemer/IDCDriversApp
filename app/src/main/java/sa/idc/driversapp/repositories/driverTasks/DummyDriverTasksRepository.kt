@@ -10,10 +10,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class DummyDriverTasksRepository : DriverTasksRepository {
-    override fun getOperatorPhoneNumber(): Single<String> {
-        return Single.just("89377772354").delay(1,TimeUnit.SECONDS)
-    }
-
 
     private val random = Random(123)
 

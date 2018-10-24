@@ -5,17 +5,22 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
+import sa.idc.driversapp.domain.interactors.account.AccountInteractor
 import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksInteractor
+import sa.idc.driversapp.domain.interactors.support.SupportInteractor
 import sa.idc.driversapp.repositories.preferences.AppPreferences
+import sa.idc.driversapp.repositories.support.SupportRepositoryImpl
 
 class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     private val interactor = DriverTasksInteractor()
 
+    private val supportInteractor = SupportInteractor(SupportRepositoryImpl())
+
     private val disposables = CompositeDisposable()
 
     fun callToOperator() {
-        interactor.getOperatorPhoneNumber()
+        supportInteractor.getSupportOperatorNumber()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -25,10 +30,10 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
     }
 
     fun logOut() {
-        var preferences = AppPreferences.instance
-        preferences.login = AppPreferences.Default.LOGIN
-        preferences.token = AppPreferences.Default.TOKEN
+        AccountInteractor().logout()
+        view.logOut()
     }
+
     fun refreshTasks() {
         view.startTasksRefresh()
         interactor.getTasksList()
@@ -53,7 +58,7 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
         view.openTask(task.id)
     }
 
-    fun destroy(){
+    fun destroy() {
         disposables.dispose()
     }
 }

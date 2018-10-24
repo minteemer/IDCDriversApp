@@ -11,12 +11,9 @@ interface DriverTasksRepository {
     fun getTaskById(taskId: Int): Single<DriverTask?>
 
     /**@return status of accepting the task using [taskId] */
-    fun acceptTaskById(taskId:Int): Single<DriverTasksInteractor.AcceptanceResult>
+    fun acceptTaskById(taskId: Int): Single<DriverTasksInteractor.AcceptanceResult>
 
     /**@return status of finishing the task using [taskID]*/
-    fun finishTaskById(taskId: Int):Single<DriverTasksInteractor.FinishiingResult>
-
-    /**@return phone number of operator*/
-    fun getOperatorPhoneNumber():Single<String>
+    fun finishTaskById(taskId: Int): Single<DriverTasksInteractor.FinishiingResult>
 
 }
