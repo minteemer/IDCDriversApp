@@ -1,6 +1,8 @@
 package sa.idc.driversapp.presentation.driverTask.view
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -59,34 +61,60 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         presenter.loadTask(id)
     }
 
+    override fun showAcceptedMessage() {
+        Toast.makeText(
+                this,
+                "Task is accepted",
+                Toast.LENGTH_SHORT
+        ).show()
+    }
+
     override fun setStatus(taskId: Long) {
-        when (preferences.acceptedTaskId) {
-            taskId -> {
-                accept_finish_button.apply {
-                    text = getString(R.string.finish_task_button)
-                    visibility = View.VISIBLE
-                    setOnClickListener { presenter.finishTask(taskId) }
-                }
-                accept_finish_button.setBackgroundColor(ContextCompat.getColor(
-                        this,
+        val context = this
+        if (preferences.acceptedTaskId == taskId) {
+            tv_already_have.visibility = View.GONE
+
+            accept_finish_button.apply {
+                text = getString(R.string.finish_task_button)
+                visibility = View.VISIBLE
+                setBackgroundColor(ContextCompat.getColor(
+                        context,
                         R.color.colorAccentDark
                 ))
-                tv_already_have.visibility = View.GONE
+                setOnClickListener {
+                    AlertDialog.Builder(context)
+                            .setTitle(R.string.finish_question)
+                            .setPositiveButton(R.string.yes) { _, _ ->
+                                presenter.finishTask(taskId)
+                            }
+                            .setNegativeButton(R.string.no) { _, _ -> }
+                            .create()
+                            .show()
+                }
             }
-            AppPreferences.Default.ID_OF_ACCEPTED_TASK -> {
+        } else {
+            if (preferences.acceptedTaskId == AppPreferences.Default.ID_OF_ACCEPTED_TASK) {
                 accept_finish_button.apply {
                     text = getString(R.string.accept_task_button)
                     visibility = View.VISIBLE
-                    setOnClickListener { presenter.acceptTask(taskId) }
+                    setBackgroundColor(ContextCompat.getColor(
+                            context,
+                            R.color.colorPrimary
+                    ))
+                    setOnClickListener {
+                        AlertDialog.Builder(context)
+                                .setTitle(R.string.question_accept)
+                                .setPositiveButton(R.string.yes) { _, _ ->
+                                    presenter.acceptTask(taskId)
+                                }
+                                .setNegativeButton(R.string.no) { _, _ -> }
+                                .create()
+                                .show()
+                    }
                 }
-                accept_finish_button.setBackgroundColor(ContextCompat.getColor(
-                        this,
-                        R.color.colorPrimary
-                ))
 
                 tv_already_have.visibility = View.GONE
-            }
-            else -> {
+            } else {
                 accept_finish_button.visibility = View.GONE
                 tv_already_have.visibility = View.VISIBLE
             }

@@ -32,17 +32,14 @@ object ApiConstructor {
                         }
                 )
                 .addInterceptor { chain ->
-                    val original = chain.request()
-
-                    val authorized = original.newBuilder()
+                    chain.request().newBuilder()
                             .addHeader("Authorisation", AppPreferences.instance.token)
                             .build()
-
-                    chain.proceed(authorized)
+                            .let { chain.proceed(it) }
                 }
     }
 
-    val defaultRetrofit : Retrofit by lazy {
+    val defaultRetrofit: Retrofit by lazy {
         defaultRetrofitBuilder
                 .client(defaultOkHttpBuilder.build())
                 .build()

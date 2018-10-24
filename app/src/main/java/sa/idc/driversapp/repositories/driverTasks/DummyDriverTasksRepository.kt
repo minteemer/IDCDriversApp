@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class DummyDriverTasksRepository : DriverTasksRepository {
 
-
     private val random = Random(123)
 
     private fun getRandomDate() =

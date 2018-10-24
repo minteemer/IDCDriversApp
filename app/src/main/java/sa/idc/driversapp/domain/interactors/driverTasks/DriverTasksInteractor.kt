@@ -20,12 +20,13 @@ class DriverTasksInteractor {
         Success, ConnectionError
     }
 
-    fun acceptTaskById(taskId: Long) = driverTasksRepository.acceptTaskById(taskId).map { accepted ->
-        if (accepted == AcceptanceResult.Success) {
-            preferences.acceptedTaskId = taskId
-        }
-        accepted
-    }
+    fun acceptTaskById(taskId: Long): Single<AcceptanceResult> =
+            driverTasksRepository.acceptTaskById(taskId).map { accepted ->
+                if (accepted == AcceptanceResult.Success) {
+                    preferences.acceptedTaskId = taskId
+                }
+                accepted
+            }
 
     enum class FinishiingResult {
         Success, ConnectionError

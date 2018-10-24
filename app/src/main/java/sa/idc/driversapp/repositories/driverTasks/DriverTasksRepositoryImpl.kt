@@ -10,7 +10,6 @@ import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksRepository
 
 class DriverTasksRepositoryImpl : DriverTasksRepository {
 
-
     private val dummyRepo = DummyDriverTasksRepository()
 
     private val db = DBHelper.defaultStorIOBuilder.build()

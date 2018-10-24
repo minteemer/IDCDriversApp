@@ -14,5 +14,5 @@ interface DriverTasksRepository {
     fun acceptTaskById(taskId:Long): Single<DriverTasksInteractor.AcceptanceResult>
 
     /**@return status of finishing the task using [taskID]*/
-    fun finishTaskById(taskId: Long):Single<DriverTasksInteractor.FinishiingResult>
+    fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishiingResult>
 }
