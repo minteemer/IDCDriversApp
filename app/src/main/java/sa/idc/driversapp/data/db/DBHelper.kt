@@ -28,8 +28,8 @@ class DBHelper : SQLiteOpenHelper(IDCDriversApp.instance, DB_NAME, null, VERSION
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(TrackingDataTable.ON_CREATE)
-        db.execSQL(TaskEntry.Table.ON_CREATE)
         db.execSQL(OrderEntry.Table.ON_CREATE)
+        db.execSQL(TaskEntry.Table.ON_CREATE)
     }
 
     override fun onConfigure(db: SQLiteDatabase) {

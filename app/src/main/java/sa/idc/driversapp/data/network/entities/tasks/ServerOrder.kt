@@ -35,23 +35,20 @@ data class ServerOrder(
     }
 
     data class Customer(
-            @SerializedName("phone_number") val phoneNumber: String
+            @SerializedName("phone_number") val phoneNumber: String?
     )
 
-    fun toDomainEntity(): Order = Order(id,
-            Date(dueDate * 1000),
-            origin.toLocation(),
-            destination.toLocation(),
+    fun toDomainEntity(): Order = Order(
+            id, Date(dueDate * 1000),
+            origin.toLocation(), destination.toLocation(),
             when (status) {
                 "DELIVERED" -> Order.Status.Delivered
                 "IN_PROGRESS" -> Order.Status.InProgress
                 "PENDING_CONFIRMATION" -> Order.Status.PendingConfirmation
                 "REJECTED" -> Order.Status.Rejected
                 else -> throw IllegalArgumentException("Unknown order status")
-            }, weight,
-            worth,
-            description,
-            customer.phoneNumber
+            },
+            weight, worth, description, customer.phoneNumber ?: "Unknown"
     )
 
 

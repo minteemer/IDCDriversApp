@@ -10,8 +10,6 @@ import com.pushtorefresh.storio3.sqlite.operations.delete.DeleteResult
 import com.pushtorefresh.storio3.sqlite.operations.put.PutResult
 import com.pushtorefresh.storio3.sqlite.queries.Query
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
-import sa.idc.driversapp.repositories.driverTasks.DummyDriverTasksRepository
-import java.lang.IllegalArgumentException
 import java.lang.NullPointerException
 
 @StorIOSQLiteType(table = TaskEntry.Table.NAME)
@@ -44,10 +42,7 @@ data class TaskEntry @StorIOSQLiteCreator constructor(
             CREATE TABLE $NAME (
                 ${Columns.ID} INTEGER NOT NULL PRIMARY KEY,
                 ${Columns.ORDER_ID} INTEGER NOT NULL ,
-                ${Columns.STATUS} STRING NOT NULL,
-                FOREIGN KEY ${Columns.ORDER_ID}
-                    REFERENCES ${OrderEntry.Table.NAME}(${OrderEntry.Table.Columns.ID})
-                    ON DELETE CASCADE
+                ${Columns.STATUS} STRING NOT NULL
             )
         """
     }

@@ -1,5 +1,6 @@
 package sa.idc.driversapp.data.network
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,6 +40,7 @@ object ApiConstructor {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
+                .addNetworkInterceptor(StethoInterceptor())
                 .addInterceptor(
                         HttpLoggingInterceptor().apply {
                             level = HttpLoggingInterceptor.Level.BODY
@@ -46,7 +48,7 @@ object ApiConstructor {
                 )
                 .addInterceptor { chain ->
                     chain.request().newBuilder()
-                            .addHeader("Authorisation", AppPreferences.instance.token)
+                            .addHeader("Authorization", AppPreferences.instance.token)
                             .build()
                             .let { chain.proceed(it) }
                 }

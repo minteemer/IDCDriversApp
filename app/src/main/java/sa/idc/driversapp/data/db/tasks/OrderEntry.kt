@@ -7,7 +7,7 @@ import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType
 import sa.idc.driversapp.domain.entities.driverTasks.Order
 import java.util.*
 
-@StorIOSQLiteType(table = TaskEntry.Table.NAME)
+@StorIOSQLiteType(table = OrderEntry.Table.NAME)
 data class OrderEntry @StorIOSQLiteCreator constructor(
         @StorIOSQLiteColumn(key = true, name = Table.Columns.ID) val id: Long,
         @StorIOSQLiteColumn(name = Table.Columns.DUE_DATE) val dueDate: Long,
