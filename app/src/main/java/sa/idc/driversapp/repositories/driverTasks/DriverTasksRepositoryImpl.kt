@@ -67,9 +67,20 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
 
 
     override fun acceptTaskById(taskId: Long): Single<DriverTasksInteractor.AcceptanceResult> =
-            dummyRepo.acceptTaskById(taskId)
+            tasksApi.activateTask(taskId).map {
+                if (it.isSuccessful)
+                    DriverTasksInteractor.AcceptanceResult.Success
+                else
+                    DriverTasksInteractor.AcceptanceResult.ConnectionError
+            }
 
     override fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishiingResult> =
-            dummyRepo.finishTaskById(taskId)
+            tasksApi.completeTask(taskId).map {
+                if (it.isSuccessful)
+                    DriverTasksInteractor.FinishiingResult.Success
+                else
+                    DriverTasksInteractor.FinishiingResult.ConnectionError
+            }
+
 
 }
