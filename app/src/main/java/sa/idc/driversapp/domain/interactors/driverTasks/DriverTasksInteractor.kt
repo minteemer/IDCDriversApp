@@ -2,12 +2,13 @@ package sa.idc.driversapp.domain.interactors.driverTasks
 
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
+import sa.idc.driversapp.repositories.driverTasks.DriverTasksRepositoryImpl
 import sa.idc.driversapp.repositories.driverTasks.DummyDriverTasksRepository
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 
 class DriverTasksInteractor {
 
-    private val driverTasksRepository: DriverTasksRepository = DummyDriverTasksRepository()
+    private val driverTasksRepository: DriverTasksRepository = DriverTasksRepositoryImpl()
 
     fun getTasksList(): Single<List<DriverTask>> = driverTasksRepository.getTasksList()
 

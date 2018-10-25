@@ -7,13 +7,26 @@ import sa.idc.driversapp.IDCDriversApp
 import sa.idc.driversapp.R
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import sa.idc.driversapp.data.network.api.AccountAPI
+import sa.idc.driversapp.data.network.api.TasksAPI
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 import java.util.concurrent.TimeUnit
 
 
 object ApiConstructor {
 
-    val defaultRetrofitBuilder: Retrofit.Builder by lazy {
+    val tasksApi: TasksAPI by lazy { defaultRetrofit.create(TasksAPI::class.java) }
+
+    val accountApi: AccountAPI by lazy { defaultRetrofit.create(AccountAPI::class.java) }
+
+
+    private val defaultRetrofit: Retrofit by lazy {
+        defaultRetrofitBuilder
+                .client(defaultOkHttpBuilder.build())
+                .build()
+    }
+
+    private val defaultRetrofitBuilder: Retrofit.Builder by lazy {
         Retrofit.Builder()
                 .baseUrl(IDCDriversApp.instance.getString(R.string.idc_server_base_url))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -21,7 +34,7 @@ object ApiConstructor {
 
     }
 
-    val defaultOkHttpBuilder: OkHttpClient.Builder by lazy {
+    private val defaultOkHttpBuilder: OkHttpClient.Builder by lazy {
         OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
@@ -37,12 +50,6 @@ object ApiConstructor {
                             .build()
                             .let { chain.proceed(it) }
                 }
-    }
-
-    val defaultRetrofit: Retrofit by lazy {
-        defaultRetrofitBuilder
-                .client(defaultOkHttpBuilder.build())
-                .build()
     }
 
 }

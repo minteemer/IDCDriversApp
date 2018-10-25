@@ -8,7 +8,7 @@ import sa.idc.driversapp.domain.interactors.account.AccountRepository
 
 class AccountRepositoryImpl : AccountRepository {
 
-    private val accountApi = ApiConstructor.defaultRetrofit.create(AccountAPI::class.java)
+    private val accountApi = ApiConstructor.accountApi
 
     override fun login(login: String, password: String, firebaseToken: String)
             : Single<Pair<AccountRepository.LoginResult, String>> =
