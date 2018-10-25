@@ -1,10 +1,7 @@
 package sa.idc.driversapp.repositories.driverTasks
 
 import android.location.Location
-import android.util.Log
 import io.reactivex.Single
-import sa.idc.driversapp.data.network.ApiConstructor
-import sa.idc.driversapp.data.network.api.TasksAPI
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.domain.entities.driverTasks.Order
 import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksInteractor
@@ -104,7 +101,7 @@ class DummyDriverTasksRepository : DriverTasksRepository {
     override fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishiingResult> =
             Single.just(DriverTasksInteractor.FinishiingResult.Success).delay(1, TimeUnit.SECONDS)
 
-    override fun getTasksList(): Single<List<DriverTask>> =
+    override fun refreshTasks(): Single<List<DriverTask>> =
             Single.just(tasks).delay(1, TimeUnit.SECONDS)
 
     override fun getTaskById(taskId: Long): Single<DriverTask?> =

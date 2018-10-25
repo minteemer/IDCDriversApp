@@ -47,7 +47,10 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
             setColorSchemeResources(R.color.colorAccent)
             setOnRefreshListener { presenter.refreshTasks() }
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         presenter.refreshTasks()
     }
 

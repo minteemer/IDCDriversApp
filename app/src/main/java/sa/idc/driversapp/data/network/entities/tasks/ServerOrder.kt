@@ -28,9 +28,9 @@ data class ServerOrder(
             @SerializedName("short_address", alternate = ["origin_short_address", "destination_short_address"])
             val short_address: String
     ) {
-        fun toLocation() = Location("").apply {
-            latitude = latitude
-            longitude = longitude
+        fun toLocation() = Location("").also {
+            it.latitude = latitude
+            it.longitude = longitude
         }
     }
 

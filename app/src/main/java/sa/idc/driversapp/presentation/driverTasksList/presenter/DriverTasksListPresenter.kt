@@ -8,7 +8,6 @@ import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.domain.interactors.account.AccountInteractor
 import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksInteractor
 import sa.idc.driversapp.domain.interactors.support.SupportInteractor
-import sa.idc.driversapp.repositories.preferences.AppPreferences
 import sa.idc.driversapp.repositories.support.SupportRepositoryImpl
 
 class DriverTasksListPresenter(private val view: DriverTasksListView) {
@@ -36,16 +35,12 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     fun refreshTasks() {
         view.startTasksRefresh()
-        interactor.getTasksList()
+        interactor.refreshTasks()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { view.finishTasksRefresh() }
                 .subscribe(
-                        {
-                            view.apply {
-                                showTasksList(it)
-                                finishTasksRefresh()
-                            }
-                        },
+                        { view.showTasksList(it) },
                         {
                             Log.e("TasksListPresenter", "Get tasks list error", it)
                             view.showGetTasksError()

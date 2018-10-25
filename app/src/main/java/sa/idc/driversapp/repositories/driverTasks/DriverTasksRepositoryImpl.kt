@@ -17,14 +17,27 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
 
     private val db = DBHelper.defaultStorIOBuilder.build()
 
-    override fun getTasksList(): Single<List<DriverTask>> =
+    override fun refreshTasks(): Single<List<DriverTask>> =
             tasksApi.getTasksList().map { response ->
                 response.result?.map { it.toDomainEntity() } ?: throw response.resultError()
             }.flatMap { tasks ->
-                db.put()
-                        .objects(tasks.map { TaskEntry(it) })
-                        .prepare()
-                        .asRxCompletable()
+                getLocalTasksList()
+                        .flatMapCompletable { oldTasks ->
+                            db.delete()
+                                    .objects(
+                                            oldTasks.filter { oldTask ->
+                                                tasks.none { it.id == oldTask.id }
+                                            }
+                                    )
+                                    .prepare()
+                                    .asRxCompletable()
+                        }
+                        .andThen(
+                                db.put()
+                                        .objects(tasks.map { TaskEntry(it) })
+                                        .prepare()
+                                        .asRxCompletable()
+                        )
                         .toSingleDefault(tasks)
             }
 
