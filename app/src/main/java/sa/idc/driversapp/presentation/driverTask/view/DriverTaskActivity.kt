@@ -189,14 +189,16 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     private fun addPolyline(results: DirectionsResult) {
-        PolylineOptions()
-                .addAll(PolyUtil.decode(results.routes[0].overviewPolyline.encodedPath))
-                .color(ContextCompat.getColor(this, R.color.colorPrimary))
-                .also { map.addPolyline(it) }
+        results.routes.getOrNull(0)?.let { route ->
+            PolylineOptions()
+                    .addAll(PolyUtil.decode(route.overviewPolyline.encodedPath))
+                    .color(ContextCompat.getColor(this, R.color.colorPrimary))
+                    .also { map.addPolyline(it) }
+        }
     }
 
     private fun addMarkersToMap(results: DirectionsResult) {
-        results.routes[0].legs[0].apply {
+        results.routes.getOrNull(0)?.legs?.getOrNull(0)?.apply {
             val origin = LatLng(startLocation.lat, startLocation.lng)
             val destination = LatLng(endLocation.lat, endLocation.lng)
 
@@ -214,7 +216,15 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                     .let { map.addMarker(it) }
 
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 14f))
-        }
+        } ?: showDisplayRouteError()
+    }
+
+    private fun showDisplayRouteError() {
+        Toast.makeText(
+                this,
+                "Could not show received path :(",
+                Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onDestroy() {

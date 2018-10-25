@@ -15,8 +15,8 @@ import java.lang.NullPointerException
 @StorIOSQLiteType(table = TaskEntry.Table.NAME)
 data class TaskEntry @StorIOSQLiteCreator constructor(
         @StorIOSQLiteColumn(key = true, name = Table.Columns.ID) val id: Long,
-        @StorIOSQLiteColumn(name = Table.Columns.STATUS) val orderId: Long,
-        @StorIOSQLiteColumn(name = Table.Columns.ORDER_ID) val status: String
+        @StorIOSQLiteColumn(name = Table.Columns.ORDER_ID) val orderId: Long,
+        @StorIOSQLiteColumn(name = Table.Columns.STATUS) val status: String
 ) {
 
     companion object {
@@ -49,7 +49,7 @@ data class TaskEntry @StorIOSQLiteCreator constructor(
 
     var order: OrderEntry? = null
 
-    constructor(task: DriverTask) : this(task.id, task.order.id, task.status.toString()) {
+    constructor(task: DriverTask) : this(task.id, task.order.id, task.status.name) {
         order = OrderEntry(task.order)
     }
 

@@ -44,7 +44,7 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
                     .withQuery(
                             Query.builder()
                                     .table(TaskEntry.Table.NAME)
-                                    .where("id = ${TaskEntry.Table.Columns.ID}")
+                                    .where("${TaskEntry.Table.Columns.ID} = ?")
                                     .whereArgs(taskId)
                                     .build()
                     )

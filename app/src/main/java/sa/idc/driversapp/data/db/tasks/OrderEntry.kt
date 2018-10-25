@@ -57,7 +57,7 @@ data class OrderEntry @StorIOSQLiteCreator constructor(
 
     constructor(order: Order): this(
             order.id, order.dueDate.time, order.origin.latitude, order.origin.longitude,
-            order.destination.latitude, order.destination.longitude, order.status.toString(),
+            order.destination.latitude, order.destination.longitude, order.status.name,
             order.weight, order.worth, order.description, order.customerContacts
     )
 
