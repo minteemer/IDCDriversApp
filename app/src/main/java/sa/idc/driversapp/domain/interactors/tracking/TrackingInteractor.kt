@@ -4,7 +4,7 @@ import android.location.Location
 import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Single
-import sa.idc.driversapp.repositories.tracking.DummyRemoteTrackingDataRepository
+import sa.idc.driversapp.repositories.tracking.RemoteTrackingDataRepositoryImpl
 import sa.idc.driversapp.repositories.tracking.LocalTrackingDataRepositoryImpl
 import java.util.*
 
@@ -14,7 +14,7 @@ class TrackingInteractor {
         private const val LOG_TAG = "TrackingInteractor"
     }
 
-    private val remoteRepository: RemoteTrackingDataRepository = DummyRemoteTrackingDataRepository()
+    private val remoteRepository: RemoteTrackingDataRepository = RemoteTrackingDataRepositoryImpl()
     private val localRepository: LocalTrackingDataRepository = LocalTrackingDataRepositoryImpl()
 
     /**
