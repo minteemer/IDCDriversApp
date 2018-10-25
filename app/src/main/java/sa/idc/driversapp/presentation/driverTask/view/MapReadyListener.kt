@@ -2,7 +2,6 @@ package sa.idc.driversapp.presentation.driverTask.view
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
 import com.google.maps.model.DirectionsResult
 import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe

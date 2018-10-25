@@ -13,6 +13,6 @@ interface DriverTasksRepository {
     /**@return status of accepting the task using [taskId] */
     fun acceptTaskById(taskId:Long): Single<DriverTasksInteractor.AcceptanceResult>
 
-    /**@return status of finishing the task using [taskID]*/
-    fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishiingResult>
+    /**@return status of finishing the task using [taskId]*/
+    fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishingResult>
 }

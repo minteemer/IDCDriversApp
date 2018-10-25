@@ -11,8 +11,6 @@ import sa.idc.driversapp.domain.interactors.driverTasks.DriverTasksRepository
 
 class DriverTasksRepositoryImpl : DriverTasksRepository {
 
-    private val dummyRepo = DummyDriverTasksRepository()
-
     private val tasksApi = ApiConstructor.tasksApi
 
     private val db = DBHelper.defaultStorIOBuilder.build()
@@ -74,12 +72,12 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
                     DriverTasksInteractor.AcceptanceResult.ConnectionError
             }
 
-    override fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishiingResult> =
+    override fun finishTaskById(taskId: Long): Single<DriverTasksInteractor.FinishingResult> =
             tasksApi.completeTask(taskId).map {
                 if (it.isSuccessful)
-                    DriverTasksInteractor.FinishiingResult.Success
+                    DriverTasksInteractor.FinishingResult.Success
                 else
-                    DriverTasksInteractor.FinishiingResult.ConnectionError
+                    DriverTasksInteractor.FinishingResult.ConnectionError
             }
 
 

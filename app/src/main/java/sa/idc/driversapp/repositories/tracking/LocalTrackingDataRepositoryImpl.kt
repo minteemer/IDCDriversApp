@@ -2,7 +2,6 @@ package sa.idc.driversapp.repositories.tracking
 
 import android.location.Location
 import com.pushtorefresh.storio3.sqlite.StorIOSQLite
-import com.pushtorefresh.storio3.sqlite.queries.GetQuery
 import com.pushtorefresh.storio3.sqlite.queries.Query
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -75,7 +75,7 @@ class DriverTaskPresenter(private val view: DriverTaskView) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ finished ->
-                    if (finished == DriverTasksInteractor.FinishiingResult.Success) {
+                    if (finished == DriverTasksInteractor.FinishingResult.Success) {
                         view.finishTask()
                     }
                 }, {}).also { disposables.add(it) }

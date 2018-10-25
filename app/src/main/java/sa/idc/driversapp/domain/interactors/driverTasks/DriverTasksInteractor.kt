@@ -28,12 +28,12 @@ class DriverTasksInteractor {
                 accepted
             }
 
-    enum class FinishiingResult {
+    enum class FinishingResult {
         Success, ConnectionError
     }
 
-    fun finishTaskById(taskID: Long) = driverTasksRepository.finishTaskById(taskID).map { finished ->
-        if (finished == FinishiingResult.Success) {
+    fun finishTaskById(taskID: Long): Single<FinishingResult> = driverTasksRepository.finishTaskById(taskID).map { finished ->
+        if (finished == FinishingResult.Success) {
             preferences.acceptedTaskId = AppPreferences.Default.ID_OF_ACCEPTED_TASK
         }
         finished

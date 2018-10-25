@@ -2,8 +2,6 @@ package sa.idc.driversapp.data.db
 
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.pushtorefresh.storio3.internal.TypeMapping
-import com.pushtorefresh.storio3.sqlite.SQLiteTypeMapping
 import com.pushtorefresh.storio3.sqlite.impl.DefaultStorIOSQLite
 import sa.idc.driversapp.IDCDriversApp
 import sa.idc.driversapp.data.db.tasks.*

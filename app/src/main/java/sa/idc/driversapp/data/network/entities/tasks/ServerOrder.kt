@@ -2,7 +2,6 @@ package sa.idc.driversapp.data.network.entities.tasks
 
 import android.location.Location
 import com.google.gson.annotations.SerializedName
-import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.domain.entities.driverTasks.Order
 import java.util.*
 

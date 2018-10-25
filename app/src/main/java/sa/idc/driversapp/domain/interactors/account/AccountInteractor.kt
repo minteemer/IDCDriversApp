@@ -1,7 +1,6 @@
 package sa.idc.driversapp.domain.interactors.account
 
 import com.google.firebase.iid.FirebaseInstanceId
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.repositories.account.AccountRepositoryImpl

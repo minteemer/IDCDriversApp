@@ -3,7 +3,6 @@ package sa.idc.driversapp.repositories.account
 import io.reactivex.Single
 import sa.idc.driversapp.data.network.ApiConstructor
 import sa.idc.driversapp.data.network.entities.account.LogInRequestData
-import sa.idc.driversapp.data.network.api.AccountAPI
 import sa.idc.driversapp.domain.interactors.account.AccountRepository
 
 class AccountRepositoryImpl : AccountRepository {
