@@ -4,4 +4,8 @@ import sa.idc.driversapp.domain.entities.support.SupportChatMessage
 
 interface SupportChatView {
     fun showMessages(messages: List<SupportChatMessage>)
+    fun startSendMessageProgress()
+    fun onMessageSent()
+    fun onMessageError()
+    fun addNewMessage(message: SupportChatMessage)
 }

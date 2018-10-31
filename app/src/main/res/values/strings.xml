@@ -74,6 +74,7 @@
     <!-- Support chat -->
     <string name="enter_message">Enter message…</string>
     <string name="support_chat_menu_item_text">Contact support</string>
+    <string name="send_message_error">Failed to send the message. Check Internet connection!</string>
 
 
 </resources>

@@ -1,20 +1,27 @@
 package sa.idc.driversapp.domain.interactors.support
 
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 import sa.idc.driversapp.domain.entities.support.SupportChatMessage
 
 class SupportInteractor(private val repository: SupportRepository) {
 
+    companion object {
+        private val newMessagesBehaviorSubject: BehaviorSubject<SupportChatMessage> =
+                BehaviorSubject.create<SupportChatMessage>()
+
+        val newMessagesObservable: Observable<SupportChatMessage> =
+                newMessagesBehaviorSubject
+    }
+
     fun getSupportOperatorNumber() = repository.getSupportOperatorNumber()
 
-    fun sendMessage(message: String) = Completable.complete()
+    fun sendMessage(message: String) = repository.sendMessage(message)
+            .flatMap { saveReceivedMessage(it).toSingleDefault(it) }
 
-    fun getChatMessages() = Single.just(
-            listOf(
-                    SupportChatMessage("Eugene", "Hello", 123),
-                    SupportChatMessage("Operator 1", "Hello!", 123),
-                    SupportChatMessage("Eugene", "It was nice to talk to you. See you later!", 123)
-            )
-    )
+    fun saveReceivedMessage(message: SupportChatMessage) =
+            repository.saveReceivedMessage(message)
+                    .doOnComplete { newMessagesBehaviorSubject.onNext(message) }
+
+    fun getSavedMessages() = repository.getSavedMessages()
 }
