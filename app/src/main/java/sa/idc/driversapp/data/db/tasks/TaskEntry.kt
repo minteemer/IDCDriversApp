@@ -16,7 +16,8 @@ import java.lang.NullPointerException
 data class TaskEntry @StorIOSQLiteCreator constructor(
         @StorIOSQLiteColumn(key = true, name = Table.Columns.ID) val id: Long,
         @StorIOSQLiteColumn(name = Table.Columns.ORDER_ID) val orderId: Long,
-        @StorIOSQLiteColumn(name = Table.Columns.STATUS) val status: String
+        @StorIOSQLiteColumn(name = Table.Columns.STATUS) val status: String,
+        @StorIOSQLiteColumn(name = Table.Columns.ROUTE_ID) val routeId: Int
 ) {
 
     companion object {
@@ -36,27 +37,30 @@ data class TaskEntry @StorIOSQLiteCreator constructor(
             const val ID = "_id"
             const val ORDER_ID = "order_id"
             const val STATUS = "status"
+            const val ROUTE_ID = "route_id"
         }
 
         const val ON_CREATE: String = """
             CREATE TABLE $NAME (
                 ${Columns.ID} INTEGER NOT NULL PRIMARY KEY,
-                ${Columns.ORDER_ID} INTEGER NOT NULL ,
-                ${Columns.STATUS} STRING NOT NULL
+                ${Columns.ORDER_ID} INTEGER NOT NULL,
+                ${Columns.STATUS} STRING NOT NULL,
+                ${Columns.ROUTE_ID} INTEGER
             )
         """
     }
 
     var order: OrderEntry? = null
 
-    constructor(task: DriverTask) : this(task.id, task.order.id, task.status.name) {
+    constructor(task: DriverTask) : this(task.id, task.order.id, task.status.name, task.routeId) {
         order = OrderEntry(task.order)
     }
 
     fun toDomainEntity() = DriverTask(
             id,
             DriverTask.Status.valueOf(status),
-            order?.toEntity() ?: throw NullPointerException("Order object is null")
+            order?.toEntity() ?: throw NullPointerException("Order object is null"),
+            routeId
     )
 
 

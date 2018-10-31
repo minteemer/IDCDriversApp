@@ -1,13 +1,19 @@
 package sa.idc.driversapp.domain.interactors.driverTasks
 
+import android.util.Log
+import com.google.maps.model.DirectionsRoute
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.repositories.driverTasks.DriverTasksRepositoryImpl
+import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 
 class DriverTasksInteractor {
 
     private val driverTasksRepository: DriverTasksRepository = DriverTasksRepositoryImpl()
+
+    private val googleMapsRepository: GoogleMapsRepository by lazy { GoogleMapsRepository() }
+
 
     fun refreshTasks(): Single<List<DriverTask>> = driverTasksRepository.refreshTasks()
 
@@ -38,5 +44,15 @@ class DriverTasksInteractor {
         }
         finished
     }
+
+    fun getRoute(task: DriverTask): Single<DirectionsRoute?> = googleMapsRepository
+            .getPath(task.order.origin, task.order.destination)
+            .map { result ->
+                Log.d("TasksInteractor", "route: ${result.routes.getOrNull(task.routeId)}")
+                result.routes.getOrElse(task.routeId) {
+                    Log.e("TasksInteractor", "Could not find path with id ${task.routeId}, returning default path")
+                    result.routes.getOrNull(0)
+                }
+            }
 
 }

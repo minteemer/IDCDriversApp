@@ -6,7 +6,8 @@ import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 data class ServerTask(
         @SerializedName("id") val id: Long,
         @SerializedName("order") val order: ServerOrder,
-        @SerializedName("status") val status: String
+        @SerializedName("status") val status: String,
+        @SerializedName("routeId") val routeId: Int
 ) {
 
     fun toDomainEntity(): DriverTask =
@@ -18,6 +19,7 @@ data class ServerTask(
                         "PENDING" -> DriverTask.Status.Pending
                         else -> throw IllegalArgumentException("Unknown task status")
                     },
-                    order.toDomainEntity()
+                    order.toDomainEntity(),
+                    routeId
             )
 }
