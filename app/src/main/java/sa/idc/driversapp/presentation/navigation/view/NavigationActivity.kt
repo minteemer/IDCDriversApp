@@ -2,6 +2,7 @@ package sa.idc.driversapp.presentation.navigation.view
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -19,10 +20,14 @@ import com.google.maps.model.DirectionsRoute
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.presentation.navigation.presenter.NavigationPresenter
 import sa.idc.driversapp.presentation.navigation.presenter.NavigationView
+import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
+import sa.idc.driversapp.repositories.preferences.AppPreferences
+import sa.idc.driversapp.services.trackingData.TrackingDataService
 
 class NavigationActivity : AppCompatActivity(), NavigationView {
 
@@ -51,7 +56,10 @@ class NavigationActivity : AppCompatActivity(), NavigationView {
         presenter.loadTask(id)
     }
 
+    private var task: DriverTask? = null
+
     override fun showTask(driverTask: DriverTask) {
+        task = driverTask
         title = getString(R.string.task_navigation_title, driverTask.id)
     }
 
@@ -68,8 +76,14 @@ class NavigationActivity : AppCompatActivity(), NavigationView {
 
         Single.create(mapReadyListener)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { (map, directions) ->
+                .subscribe { (map, route) ->
                     this.map = map
+
+                    task?.let {
+                        if (it.id != AppPreferences.instance.acceptedTaskId) {
+                            showRouteToOrigin(it.order.origin)
+                        }
+                    }
 
                     try {
                         map.apply {
@@ -80,16 +94,38 @@ class NavigationActivity : AppCompatActivity(), NavigationView {
                         Log.e("DriverTaskActivity", "Map initialising error", e)
                     }
 
-                    addMarkersToMap(directions)
-                    addPolyline(directions)
+                    addMarkersToMap(route)
+                    addPolyline(route)
                 }
                 .also { disposables.add(it) }
     }
 
-    private fun addPolyline(route: DirectionsRoute) {
+    private fun showRouteToOrigin(originLocation: Location) {
+        TrackingDataService.currentLocationObservable
+                .observeOn(Schedulers.io())
+                .subscribe { currentLocation ->
+                    GoogleMapsRepository().getPath(currentLocation, originLocation)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    {
+                                        it.routes.getOrNull(0)?.let { route ->
+                                            addPolyline(route, colorResource = R.color.colorAccent)
+                                        }
+                                    },
+                                    {
+                                        Log.e("NavigationActivity", "Could not show path to origin", it)
+                                    }
+                            )
+                            .also { disposables.add(it) }
+                }
+                .also { disposables.add(it) }
+    }
+
+    private fun addPolyline(route: DirectionsRoute, colorResource: Int = R.color.colorPrimary) {
         PolylineOptions()
-                .addAll(PolyUtil.decode(route.overviewPolyline.encodedPath))
-                .color(ContextCompat.getColor(this, R.color.colorPrimary))
+                .addAll(route.legs[0].steps.flatMap { PolyUtil.decode(it.polyline.encodedPath) })
+                .color(ContextCompat.getColor(this, colorResource))
                 .also { map.addPolyline(it) }
     }
 
@@ -142,7 +178,6 @@ class NavigationActivity : AppCompatActivity(), NavigationView {
                 Toast.LENGTH_SHORT
         ).show()
     }
-
 
     override fun onDestroy() {
         disposables.dispose()

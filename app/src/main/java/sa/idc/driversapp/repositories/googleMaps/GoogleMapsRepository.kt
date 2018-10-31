@@ -28,6 +28,7 @@ class GoogleMapsRepository {
                         .origin(LatLng(origin.latitude, origin.longitude))
                         .destination(LatLng(destination.latitude, destination.longitude))
                         .departureTime(DateTime())
+                        .language("en")
                         .alternatives(true)
                         .await()
                         .also { emitter.onSuccess(it) }

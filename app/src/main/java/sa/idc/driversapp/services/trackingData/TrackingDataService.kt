@@ -11,11 +11,14 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import sa.idc.driversapp.domain.interactors.tracking.TrackingInteractor
 import sa.idc.driversapp.repositories.preferences.AppPreferences
+import sa.idc.driversapp.util.AppPermissions
 
 class TrackingDataService : Service() {
 
@@ -25,6 +28,10 @@ class TrackingDataService : Service() {
         fun start(context: Context) {
             context.startService(Intent(context, TrackingDataService::class.java))
         }
+
+        private val currentLocationBehaviorSubject = BehaviorSubject.create<Location>()
+
+        val currentLocationObservable: Observable<Location> = currentLocationBehaviorSubject
     }
 
     private val trackingInteractor = TrackingInteractor()
@@ -43,16 +50,13 @@ class TrackingDataService : Service() {
     }
 
     private fun initLocationLogging() {
-        if (Build.VERSION.SDK_INT <= 23 ||
-                ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED) {
-
+        if (checkLocationPermission()) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                location?.let { saveLocation(it) }
+                location?.let {
+                    currentLocationBehaviorSubject.onNext(it)
+                    saveLocation(it)
+                }
             }
-
         } else {
             stopSelf()
         }
@@ -102,4 +106,10 @@ class TrackingDataService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int = START_STICKY
 
     override fun onBind(intent: Intent): IBinder? = null
+
+
+    private fun checkLocationPermission() = Build.VERSION.SDK_INT <= 23 ||
+            ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
 }
