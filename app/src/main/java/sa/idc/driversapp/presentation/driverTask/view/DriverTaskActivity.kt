@@ -16,6 +16,7 @@ import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskPresenter
 import sa.idc.driversapp.presentation.driverTask.presenter.DriverTaskView
 import sa.idc.driversapp.presentation.driverTasksList.view.DriverTasksListActivity
+import sa.idc.driversapp.presentation.navigation.view.NavigationActivity
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 import sa.idc.driversapp.util.DateFormats
 
@@ -44,6 +45,9 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         setStatus(id)
 
         presenter.loadTask(id)
+        open_map_btn.setOnClickListener {
+            NavigationActivity.start(this,id)
+        }
     }
 
     override fun showAcceptedMessage() {

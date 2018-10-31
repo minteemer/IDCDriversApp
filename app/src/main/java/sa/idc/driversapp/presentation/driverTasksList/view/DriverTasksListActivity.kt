@@ -123,7 +123,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
     }
 
     override fun openTask(taskId: Long) {
-        NavigationActivity.start(this, taskId)
+        DriverTaskActivity.start(this, taskId)
     }
 
     override fun logOut() {
