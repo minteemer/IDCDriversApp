@@ -6,20 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
-import com.google.maps.android.PolyUtil
 import com.google.maps.model.DirectionsResult
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_driver_task.*
 import sa.idc.driversapp.R
@@ -44,8 +33,6 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
     private val preferences = AppPreferences.instance
     private val presenter = DriverTaskPresenter(this)
-
-    private lateinit var map: GoogleMap
     private val mapReadyListener = MapReadyListener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
