@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import io.reactivex.disposables.CompositeDisposable
@@ -44,9 +46,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         setStatus(id)
 
         presenter.loadTask(id)
-        open_map_btn.setOnClickListener {
-            NavigationActivity.start(this,id)
-        }
+
     }
 
     override fun showAcceptedMessage() {
@@ -108,7 +108,16 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
             }
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_driver_task_menu, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = intent.getLongExtra(TASK_ID_INTENT_FIELD, -1L)
+        NavigationActivity.start(this,id)
+        return true
+    }
     override fun showTask(driverTask: DriverTask) {
         tv_contacts_field.text = driverTask.order.customerPhoneNumber
         tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.order.dueDate)
