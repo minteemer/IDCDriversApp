@@ -16,8 +16,8 @@ import sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListPresenter
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListView
 import android.view.MenuItem
+import android.view.View
 import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
-import sa.idc.driversapp.presentation.navigation.view.NavigationActivity
 import sa.idc.driversapp.util.AppPermissions
 
 
@@ -99,6 +99,13 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
     }
 
     override fun showTasksList(tasks: List<DriverTask>) {
+        if (tasks.isEmpty()){
+            tv_no_tasks.visibility = View.VISIBLE
+            iv_no_tasks.visibility = View.VISIBLE
+        }else{
+            tv_no_tasks.visibility = View.GONE
+            iv_no_tasks.visibility = View.GONE
+        }
         tasksList.apply {
             clear()
             addAll(tasks)

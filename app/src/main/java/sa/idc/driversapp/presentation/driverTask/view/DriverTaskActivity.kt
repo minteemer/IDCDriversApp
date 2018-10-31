@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import com.google.maps.model.DirectionsResult
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_driver_task.*
 import sa.idc.driversapp.R
@@ -114,22 +113,23 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         tv_contacts_field.text = driverTask.order.customerPhoneNumber
         tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.order.dueDate)
         tv_description_field.text = driverTask.order.description
-        tv_customer_email.text = this.getString(
-                R.string.customer_email,
+        tv_customer_email_field.text = this.getString(
+                R.string.customer_email_field,
                 driverTask.order.customerEmail
         )
-        tv_destination_address.text = this.getString(
+        tv_destination_address_field.text = this.getString(
                 R.string.destination_address,
                 driverTask.order.destinationAddress
         )
-        tv_original_address.text = this.getString(
+        tv_origin_address_field.text = this.getString(
                 R.string.original_address,
                 driverTask.order.originAddress
         )
-        tv_customer_name.text = this.getString(
-                R.string.customer_name,
+        tv_customer_name_field.text = this.getString(
+                R.string.customer_name_field,
                 driverTask.order.customerName
         )
+
     }
 
     override fun finishTask() {
