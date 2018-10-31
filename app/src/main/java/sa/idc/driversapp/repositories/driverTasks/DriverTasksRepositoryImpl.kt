@@ -15,7 +15,9 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
 
     private val db = DBHelper.defaultStorIOBuilder.build()
 
-    override fun refreshTasks(): Single<List<DriverTask>> =
+    override fun refreshTasks(): Single<List<DriverTask>> = Single.just(listOf())
+
+    fun hui() =
             tasksApi.getTasksList().map { response ->
                 response.result?.map { it.toDomainEntity() } ?: throw response.resultError()
             }.flatMap { tasks ->
