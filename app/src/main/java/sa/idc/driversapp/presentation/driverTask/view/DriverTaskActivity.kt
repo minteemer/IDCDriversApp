@@ -9,14 +9,15 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.google.android.gms.maps.model.*
-import com.google.maps.android.PolyUtil
-import com.google.maps.model.DirectionsResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.maps.android.PolyUtil
+import com.google.maps.model.DirectionsResult
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -54,7 +55,6 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
         val id = intent.getLongExtra(TASK_ID_INTENT_FIELD, -1L)
 
-        initMap()
         setStatus(id)
 
         presenter.loadTask(id)
@@ -121,9 +121,25 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     override fun showTask(driverTask: DriverTask) {
-        tv_contacts_field.text = driverTask.order.customerContacts
+        tv_contacts_field.text = driverTask.order.customerPhoneNumber
         tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.order.dueDate)
-        tv_description.text = driverTask.order.description
+        tv_description_field.text = driverTask.order.description
+        tv_customer_email.text = this.getString(
+                R.string.customer_email,
+                driverTask.order.customerEmail
+        )
+        tv_destination_address.text = this.getString(
+                R.string.destination_address,
+                driverTask.order.destinationAddress
+        )
+        tv_original_address.text = this.getString(
+                R.string.original_address,
+                driverTask.order.originAddress
+        )
+        tv_customer_name.text = this.getString(
+                R.string.customer_name,
+                driverTask.order.customerName
+        )
     }
 
     override fun finishTask() {
@@ -162,69 +178,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         mapReadyListener.setDestination(directions)
     }
 
-    private fun initMap() {
-        val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.task_description_map) as SupportMapFragment
-        mapFragment.getMapAsync(mapReadyListener)
 
-        Single.create(mapReadyListener)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { (map, directions) ->
-                    this.map = map
-
-                    try {
-                        map.apply {
-                            isMyLocationEnabled = true
-                            uiSettings.isMyLocationButtonEnabled = true
-                        }
-                    } catch (e: SecurityException) {
-                        Log.e("DriverTaskActivity", "Map initialising error", e)
-                    }
-
-                    addMarkersToMap(directions)
-                    addPolyline(directions)
-                }
-                .also { disposables.add(it) }
-    }
-
-    private fun addPolyline(results: DirectionsResult) {
-        results.routes.getOrNull(0)?.let { route ->
-            PolylineOptions()
-                    .addAll(PolyUtil.decode(route.overviewPolyline.encodedPath))
-                    .color(ContextCompat.getColor(this, R.color.colorPrimary))
-                    .also { map.addPolyline(it) }
-        }
-    }
-
-    private fun addMarkersToMap(results: DirectionsResult) {
-        results.routes.getOrNull(0)?.legs?.getOrNull(0)?.apply {
-            val origin = LatLng(startLocation.lat, startLocation.lng)
-            val destination = LatLng(endLocation.lat, endLocation.lng)
-
-            MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .position(origin)
-                    .title(startAddress)
-                    .let { map.addMarker(it) }
-
-            MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                    .position(destination)
-                    .title(endAddress)
-                    .snippet("Time: ${duration.humanReadable}, Distance: ${distance.humanReadable}")
-                    .let { map.addMarker(it) }
-
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 14f))
-        } ?: showDisplayRouteError()
-    }
-
-    private fun showDisplayRouteError() {
-        Toast.makeText(
-                this,
-                "Could not show received path :(",
-                Toast.LENGTH_SHORT
-        ).show()
-    }
 
     override fun onDestroy() {
         disposables.dispose()

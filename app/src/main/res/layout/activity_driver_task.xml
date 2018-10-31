@@ -79,17 +79,56 @@
         app:layout_constraintTop_toBottomOf="@id/tv_contacts_field"
         tools:text="Description" />
 
-    <fragment
-        android:id="@+id/task_description_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+    <TextView
+        android:id="@+id/tv_customer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/customer_name"
+
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description_field" />
+
+    <TextView
+        android:id="@+id/tv_customer_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="8dp"
+        android:text="@string/customer_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttons_barrier"
-        app:layout_constraintTop_toBottomOf="@id/tv_description" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_customer_name" />
+    <TextView
+        android:id="@+id/tv_original_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="8dp"
+        android:text="@string/original_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_customer_email" />
+
+    <TextView
+        android:id="@+id/tv_destination_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="8dp"
+        android:text="@string/destination_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_original_address" />
+
 
     <android.support.constraint.Barrier
         android:id="@+id/buttons_barrier"

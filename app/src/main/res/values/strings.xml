@@ -27,19 +27,23 @@
     <string name="tasks_list_item_due_date">Due to:\n%1$s</string>
     <string name="task_list_item_order_id">Order № %1$d</string>
 
+    <!--Menu Items -->
     <string name="call_support_menu_item_text">Call support</string>
     <string name="log_out_menu_item_text">Log out</string>
 
     <!-- Task description -->
     <string name="driver_task_activity_title">Delivery task details</string>
+
+    <string name="customer_email">Customer email: %1$s</string>
+    <string name="customer_name">Customer name: %1$s</string>
     <string name="taskError">Something is wrong :(</string>
     <string name="origin">Address: </string>
     <string name="contacts">Contacts: </string>
     <string name="due_date">Due date: </string>
     <string name="driver_task_connection_error">Check your internet connection</string>
     <string name="finish_task_button">Finish task</string>
-    <string name="origin_address">Origin: </string>
-    <string name="destination_address">Destination: </string>
+    <string name="original_address">Origin address: \n%1$s</string>
+    <string name="destination_address">Destination address: \n%1$s</string>
     <string name="button_default_text">Accept</string>
     <string name="destination_field_default">Destination address</string>
     <string name="accept_task_button">Accept task</string>
@@ -48,6 +52,7 @@
     <string name="already_have">You already have an order to finish</string>
     <string name="question_accept">Are you sure you want to start the task?</string>
     <string name="finish_question">Are you sure you have finished the task?</string>
+
 
 
     <!-- DateTime formats -->
@@ -63,5 +68,7 @@
     <string name="new_tasks_assigned_channel_id">NEW_TASKS_ASSIGNED</string>
     <string name="new_tasks_assigned_channel_name">New tasks notifications</string>
     <string name="new_tasks_assigned_channel_description">Receive notifications when new tasks are assigned to you</string>
+
+
 
 </resources>

@@ -12,7 +12,11 @@ data class Order(
         val weight: Double,
         val worth: Long,
         val description: String,
-        val customerContacts: String
+        val customerPhoneNumber: String,
+        val customerEmail: String,
+        val customerName: String,
+        val destinationAddress: String,
+        val originAddress: String
 ) {
     enum class Status {
         PendingConfirmation, Rejected, InProgress, Delivered
