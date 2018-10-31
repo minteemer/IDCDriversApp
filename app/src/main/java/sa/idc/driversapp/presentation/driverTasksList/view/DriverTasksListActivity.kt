@@ -18,6 +18,7 @@ import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListV
 import android.view.MenuItem
 import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
 import sa.idc.driversapp.presentation.navigation.view.NavigationActivity
+import sa.idc.driversapp.presentation.supportChat.view.SupportChatActivity
 import sa.idc.driversapp.util.AppPermissions
 
 
@@ -62,6 +63,10 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.support_chat_item -> {
+                presenter.connectWithSupport()
+                true
+            }
             R.id.call_support_item -> {
                 presenter.callToOperator()
                 true
@@ -81,6 +86,9 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
         }
     }
 
+    override fun startSupportChatActivity() {
+        SupportChatActivity.start(this)
+    }
 
     override fun callSupportNumber(number: String) {
         if (!AppPermissions.permissionIsGranted(Manifest.permission.CALL_PHONE)) {

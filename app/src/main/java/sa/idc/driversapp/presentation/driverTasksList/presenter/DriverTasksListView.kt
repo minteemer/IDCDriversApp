@@ -23,4 +23,7 @@ interface DriverTasksListView {
 
     /** Show successful logout message and move to log in screen */
     fun logOut()
+
+    /** Start support chat activity */
+    fun startSupportChatActivity()
 }

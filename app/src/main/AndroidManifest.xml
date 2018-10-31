@@ -48,7 +48,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".presentation.navigation.view.NavigationActivity"></activity>
+        <activity android:name=".presentation.navigation.view.NavigationActivity" />
+        <activity android:name=".presentation.supportChat.view.SupportChatActivity"></activity>
     </application>
 
 </manifest>

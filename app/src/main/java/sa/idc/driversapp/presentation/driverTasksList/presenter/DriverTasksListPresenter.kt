@@ -56,4 +56,8 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
     fun destroy() {
         disposables.dispose()
     }
+
+    fun connectWithSupport() {
+        view.startSupportChatActivity()
+    }
 }
