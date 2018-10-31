@@ -33,7 +33,6 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
 
     private val preferences = AppPreferences.instance
     private val presenter = DriverTaskPresenter(this)
-    private val mapReadyListener = MapReadyListener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,11 +159,6 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     private var disposables = CompositeDisposable()
-
-    override fun showRoute(directions: DirectionsResult) {
-        mapReadyListener.setDestination(directions)
-    }
-
 
 
     override fun onDestroy() {
