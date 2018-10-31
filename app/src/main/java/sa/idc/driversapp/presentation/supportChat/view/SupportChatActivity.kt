@@ -19,6 +19,8 @@ class SupportChatActivity : AppCompatActivity(), SupportChatView {
         fun start(context: Context) {
             context.startActivity(Intent(context, SupportChatActivity::class.java))
         }
+
+        var isInForeground: Boolean = false
     }
 
     private val presenter = SupportChatPresenter(this)
@@ -91,4 +93,14 @@ class SupportChatActivity : AppCompatActivity(), SupportChatView {
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        isInForeground = true
+    }
+
+    override fun onPause() {
+        isInForeground = false
+        super.onPause()
+    }
 }
