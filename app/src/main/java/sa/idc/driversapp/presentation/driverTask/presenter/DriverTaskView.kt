@@ -13,9 +13,6 @@ interface DriverTaskView {
     /** Close the activity */
     fun close()
 
-    /** Show given route on the map */
-    fun showRoute(directions: DirectionsResult)
-
     /**Show connection error message*/
     fun showConnectionError()
 

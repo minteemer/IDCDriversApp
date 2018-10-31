@@ -23,9 +23,9 @@ data class ServerOrder(
             @SerializedName("longitude", alternate = ["origin_longitude", "destination_longitude"])
             val longitude: Double,
             @SerializedName("full_address", alternate = ["origin_full_address", "destination_full_address"])
-            val full_address: String,
+            val full_address: String?,
             @SerializedName("short_address", alternate = ["origin_short_address", "destination_short_address"])
-            val short_address: String
+            val short_address: String?
     ) {
         fun toLocation() = Location("").also {
             it.latitude = latitude
@@ -34,12 +34,16 @@ data class ServerOrder(
     }
 
     data class Customer(
-            @SerializedName("phone_number") val phoneNumber: String?
+            @SerializedName("phone_number") val phoneNumber: String?,
+            @SerializedName("email") val email: String?,
+            @SerializedName("name") val name: String?
+
     )
 
     fun toDomainEntity(): Order = Order(
             id, Date(dueDate * 1000),
-            origin.toLocation(), destination.toLocation(),
+            origin.toLocation(),
+            destination.toLocation(),
             when (status) {
                 "DELIVERED" -> Order.Status.Delivered
                 "IN_PROGRESS" -> Order.Status.InProgress
@@ -47,7 +51,13 @@ data class ServerOrder(
                 "REJECTED" -> Order.Status.Rejected
                 else -> throw IllegalArgumentException("Unknown order status")
             },
-            weight, worth, description, customer.phoneNumber ?: "Unknown"
+            weight, worth, description,
+            customer.phoneNumber ?: "Unknown",
+            customer.email ?:"Unknown",
+            customer.name ?: "Unknown",
+            destination.full_address   ?: "Unknown",
+            origin.full_address ?: "Unknown"
+
     )
 
 

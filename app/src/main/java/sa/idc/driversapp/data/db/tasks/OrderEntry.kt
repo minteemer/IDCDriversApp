@@ -19,7 +19,11 @@ data class OrderEntry @StorIOSQLiteCreator constructor(
         @StorIOSQLiteColumn(name = Table.Columns.WEIGHT) val weight: Double,
         @StorIOSQLiteColumn(name = Table.Columns.WORTH) val worth: Long,
         @StorIOSQLiteColumn(name = Table.Columns.DESCRIPTION) val description: String,
-        @StorIOSQLiteColumn(name = Table.Columns.CUSTOMER_PHONE_NUMBER) val customerPhoneNumber: String
+        @StorIOSQLiteColumn(name = Table.Columns.CUSTOMER_PHONE_NUMBER) val customerPhoneNumber: String,
+        @StorIOSQLiteColumn(name = Table.Columns.CUSTOMER_EMAIL) val customerEmail: String,
+        @StorIOSQLiteColumn(name = Table.Columns.CUSTOMER_NAME) val customerName: String,
+        @StorIOSQLiteColumn(name = Table.Columns.DESTINATION_ADDRESS) val destinationAddress: String,
+        @StorIOSQLiteColumn(name = Table.Columns.ORIGIN_ADDRESS) val originAddress: String
 ) {
     object Table {
         const val NAME: String = "orders"
@@ -36,6 +40,10 @@ data class OrderEntry @StorIOSQLiteCreator constructor(
             const val WORTH = "worth"
             const val DESCRIPTION = "description"
             const val CUSTOMER_PHONE_NUMBER = "customer_phone_number"
+            const val CUSTOMER_EMAIL = "customer_email"
+            const val CUSTOMER_NAME = "customer_name"
+            const val DESTINATION_ADDRESS = "destination_address"
+            const val ORIGIN_ADDRESS = "origin_address"
         }
 
         const val ON_CREATE: String = """
@@ -50,7 +58,11 @@ data class OrderEntry @StorIOSQLiteCreator constructor(
                 ${Columns.WEIGHT} REAL,
                 ${Columns.WORTH} INTEGER,
                 ${Columns.DESCRIPTION} STRING,
-                ${Columns.CUSTOMER_PHONE_NUMBER} STRING
+                ${Columns.CUSTOMER_PHONE_NUMBER} STRING,
+                ${Columns.CUSTOMER_EMAIL} STRING,
+                ${Columns.CUSTOMER_NAME} STRING,
+                ${Columns.DESTINATION_ADDRESS} STRING,
+                ${Columns.ORIGIN_ADDRESS} STRING
             )
         """
     }
@@ -58,13 +70,15 @@ data class OrderEntry @StorIOSQLiteCreator constructor(
     constructor(order: Order): this(
             order.id, order.dueDate.time, order.origin.latitude, order.origin.longitude,
             order.destination.latitude, order.destination.longitude, order.status.name,
-            order.weight, order.worth, order.description, order.customerContacts
+            order.weight, order.worth, order.description, order.customerPhoneNumber,
+            order.customerEmail, order.customerName, order.destinationAddress, order.originAddress
     )
 
     fun toEntity() = Order(
             id, Date(dueDate),
             createLocation(originLat, originLng), createLocation(destinationLat, destinationLng),
-            Order.Status.valueOf(status), weight, worth, description, customerPhoneNumber
+            Order.Status.valueOf(status), weight, worth, description, customerPhoneNumber,
+            customerEmail, customerName, destinationAddress, originAddress
     )
 
     private fun createLocation(lat: Double, lng: Double) = Location("").apply {
