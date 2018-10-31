@@ -17,6 +17,7 @@ import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListP
 import sa.idc.driversapp.presentation.driverTasksList.presenter.DriverTasksListView
 import android.view.MenuItem
 import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
+import sa.idc.driversapp.presentation.navigation.view.NavigationActivity
 import sa.idc.driversapp.util.AppPermissions
 
 
@@ -122,7 +123,7 @@ class DriverTasksListActivity : AppCompatActivity(), DriverTasksListView {
     }
 
     override fun openTask(taskId: Long) {
-        DriverTaskActivity.start(this, taskId)
+        NavigationActivity.start(this, taskId)
     }
 
     override fun logOut() {
