@@ -15,8 +15,8 @@ class DBHelper : SQLiteOpenHelper(IDCDriversApp.instance, DB_NAME, null, VERSION
 
     companion object {
         private const val DB_NAME = "IDCDriversAppDB"
-        private const val VERSION = 1
 
+        private const val VERSION = 1
         val defaultStorIOBuilder: DefaultStorIOSQLite.CompleteBuilder by lazy {
             DefaultStorIOSQLite.builder()
                     .sqliteOpenHelper(DBHelper())
@@ -27,6 +27,17 @@ class DBHelper : SQLiteOpenHelper(IDCDriversApp.instance, DB_NAME, null, VERSION
                             SupportChatMessageEntry::class.java,
                             SupportChatMessageEntrySQLiteTypeMapping()
                     )
+        }
+
+        fun onLogout() {
+            listOf(
+                    TrackingDataTable.NAME,
+                    OrderEntry.Table.NAME,
+                    TaskEntry.Table.NAME,
+                    SupportChatMessageEntry.Table.NAME
+            ).forEach {
+                DBHelper().writableDatabase.execSQL("DELETE FROM $it")
+            }
         }
     }
 

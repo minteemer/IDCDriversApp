@@ -1,5 +1,6 @@
 package sa.idc.driversapp.data.network.api
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.Body
@@ -21,4 +22,7 @@ interface AccountAPI {
 
     @GET("driver")
     fun getAccountData(): Single<Response<ResultWrapper<AccountData>>>
+
+    @POST("driver/logout")
+    fun logout(): Completable
 }

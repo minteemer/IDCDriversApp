@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<string name="idc_server_base_url">http://18.191.14.124:8080/v1/</string>-->
-    <string name="idc_server_base_url">http://10.240.17.254:8080/v1/</string>
+    <string name="idc_server_base_url">http://18.191.14.124:8080/v1/</string>
 </resources>

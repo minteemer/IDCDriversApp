@@ -1,5 +1,6 @@
 package sa.idc.driversapp.repositories.account
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
 import retrofit2.http.HTTP
@@ -32,4 +33,6 @@ class AccountRepositoryImpl : AccountRepository {
                 response.takeIf { it.isSuccessful }?.body()?.result
                         ?: throw HttpException(response)
             }
+
+    override fun logout(): Completable = accountApi.logout()
 }

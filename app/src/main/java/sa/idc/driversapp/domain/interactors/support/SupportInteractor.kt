@@ -20,7 +20,7 @@ class SupportInteractor(private val repository: SupportRepository = SupportRepos
     fun getSupportOperatorNumber() = repository.getSupportOperatorNumber()
 
     fun sendMessage(message: String): Single<SupportChatMessage> =
-            repository.sendMessage(message)
+            repository.sendMessage(message.trim())
                     .flatMap { saveReceivedMessage(it).toSingleDefault(it) }
 
     fun saveReceivedMessage(message: SupportChatMessage): Completable =

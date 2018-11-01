@@ -30,7 +30,13 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     fun logOut() {
         AccountInteractor().logout()
-        view.logOut()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        { view.logOut() },
+                        { Log.d("TasksListPresenter", "Log out error", it)}
+                )
+                .also { disposables.add(it) }
     }
 
     fun refreshTasks() {

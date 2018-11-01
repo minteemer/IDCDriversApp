@@ -82,7 +82,7 @@ object Notifier {
         val notificationBuilder = NotificationCompat.Builder(appContext, channelId)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.ic_notification_icon)
-                .setDefaults(NotificationCompat.DEFAULT_SOUND or NotificationCompat.DEFAULT_VIBRATE)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setContentTitle(message.name)
                 .setContentText(message.text)
                 .setAutoCancel(true)

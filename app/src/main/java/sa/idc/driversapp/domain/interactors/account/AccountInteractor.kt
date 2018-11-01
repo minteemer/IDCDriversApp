@@ -1,8 +1,10 @@
 package sa.idc.driversapp.domain.interactors.account
 
 import com.google.firebase.iid.FirebaseInstanceId
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import sa.idc.driversapp.data.db.DBHelper
 import sa.idc.driversapp.repositories.account.AccountRepositoryImpl
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 
@@ -39,11 +41,11 @@ class AccountInteractor {
         }
     }.observeOn(Schedulers.io())
 
-    fun logout() {
-        preferences.apply {
-            login = AppPreferences.Default.LOGIN
-            token = AppPreferences.Default.TOKEN
-        }
-    }
+    fun logout(): Completable = repository.logout()
+            .onErrorComplete()
+            .doFinally {
+                AppPreferences.onLogout()
+                DBHelper.onLogout()
+            }
 
 }
