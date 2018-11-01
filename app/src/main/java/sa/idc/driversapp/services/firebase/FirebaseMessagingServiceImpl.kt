@@ -1,74 +1,80 @@
 package sa.idc.driversapp.services.firebase
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import sa.idc.driversapp.R
-import sa.idc.driversapp.presentation.driverTasksList.view.DriverTasksListActivity
+import io.reactivex.schedulers.Schedulers
+import sa.idc.driversapp.domain.entities.support.SupportChatMessage
+import sa.idc.driversapp.domain.interactors.support.SupportInteractor
+import sa.idc.driversapp.presentation.supportChat.view.SupportChatActivity
 
 class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
 
     companion object {
         private const val LOG_TAG = "MessagingService"
+
+        private const val TYPE_FIELD = "type"
     }
 
-    object NewTasksNotifications {
-        const val CHANNEL_NAME = "new_tasks_notifications"
+    private object Messages {
+        object NewTask {
+            const val TYPE_NAME = "task"
+
+            object Fields {
+                const val ID = "id"
+            }
+        }
+
+        object SupportChatMessage {
+            const val TYPE_NAME = "message"
+
+            object Fields {
+                const val OPERATOR_NAME = "operator_name"
+                const val TEXT = "text"
+                const val DATE = "posted_date"
+            }
+        }
     }
 
-    private val notificationManager
-            by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
+
+    private val supportInteractor: SupportInteractor by lazy { SupportInteractor() }
 
     override fun onMessageReceived(message: RemoteMessage) {
         Log.d(LOG_TAG, "Firebase message ${message.messageId} received: ${message.data}")
 
-        sendNewTaskNotification()
+        when (message.data[TYPE_FIELD]) {
+            Messages.NewTask.TYPE_NAME -> handleNewTaskMessage(message)
+            Messages.SupportChatMessage.TYPE_NAME -> handleSupportMessageNo(message)
+            else -> Log.e(LOG_TAG, "Unknown message type!")
+        }
     }
 
+    private fun handleSupportMessageNo(message: RemoteMessage) {
+        with(Messages.SupportChatMessage.Fields) {
+            val operatorName = message.data[OPERATOR_NAME]
+            val text = message.data[TEXT]
+            val date = message.data[DATE]
 
-    private fun sendNewTaskNotification() {
-        val intent = Intent(applicationContext, DriverTasksListActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            if (operatorName != null && text != null && date != null) {
+                SupportChatMessage(operatorName, text, date.toLong()).let {
+                    supportInteractor.saveReceivedMessage(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(Schedulers.computation())
+                            .subscribe(
+                                    { Log.d(LOG_TAG, "$message saved") },
+                                    { e -> Log.d(LOG_TAG, "Error while saving $message", e) }
+                            )
+
+                    if (!SupportChatActivity.isInForeground)
+                        Notifier.sendNewSupportChatMessage(it)
+                }
+            }
         }
+    }
 
-        val pendingIntent =
-                PendingIntent.getActivity(
-                        applicationContext,
-                        System.currentTimeMillis().toInt(),
-                        intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                )
-
-        val channelId = getString(R.string.new_tasks_assigned_channel_id)
-
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_notification_icon)
-                .setContentTitle(getString(R.string.new_task_notification_title))
-                .setContentText(getString(R.string.new_task_notification_text))
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                    channelId,
-                    getString(R.string.new_tasks_assigned_channel_name),
-                    NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notificationManager.createNotificationChannel(channel)
+    private fun handleNewTaskMessage(message: RemoteMessage) {
+        message.data[Messages.NewTask.Fields.ID]?.toLongOrNull()?.let {
+            Notifier.sendNewTaskNotification(it)
         }
-
-        notificationManager.notify(
-                NewTasksNotifications.CHANNEL_NAME,
-                1,
-                notificationBuilder.build()
-        )
-
     }
 }

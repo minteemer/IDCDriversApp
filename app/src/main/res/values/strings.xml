@@ -54,6 +54,10 @@
     <string name="already_have">You already have an order to finish</string>
     <string name="question_accept">Are you sure you want to start the task?</string>
     <string name="finish_question">Are you sure you have finished the task?</string>
+    <string name="customer_name">Customer name:</string>
+    <string name="customer_email">Customer email:</string>
+    <string name="customer_origin_address">Origin address</string>
+    <string name="image_for_no_tasks_event_for_image_view">Image for no tasks event</string>
 
 
     <!-- DateTime formats -->
@@ -69,11 +73,20 @@
     <string name="new_tasks_assigned_channel_id">NEW_TASKS_ASSIGNED</string>
     <string name="new_tasks_assigned_channel_name">New tasks notifications</string>
     <string name="new_tasks_assigned_channel_description">Receive notifications when new tasks are assigned to you</string>
+
+    <string name="new_support_chat_message_channel_id">NEW_TASKS_ASSIGNED</string>
+    <string name="new_support_chat_message_channel_name">New tasks notifications</string>
+    <string name="new_support_chat_message_channel_description">Receive notifications when new tasks are assigned to you</string>
+
+
+    <!-- Navigation -->
     <string name="task_navigation_title">Task №%d Navigation</string>
-    <string name="customer_name">Customer name:</string>
-    <string name="customer_email">Customer email:</string>
-    <string name="customer_origin_address">Origin address</string>
-    <string name="image_for_no_tasks_event_for_image_view">Image for no tasks event</string>
+
+    <!-- Support chat -->
+    <string name="support_chat_title">Chat with support operators</string>
+    <string name="enter_message">Enter message…</string>
+    <string name="support_chat_menu_item_text">Contact support</string>
+    <string name="send_message_error">Failed to send the message. Check Internet connection!</string>
 
 
 </resources>

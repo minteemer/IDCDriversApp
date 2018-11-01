@@ -14,23 +14,18 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     private val interactor = DriverTasksInteractor()
 
-    private val supportInteractor = SupportInteractor(SupportRepositoryImpl())
-
     private val disposables = CompositeDisposable()
 
-    fun callToOperator() {
-        supportInteractor.getSupportOperatorNumber()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { view.callSupportNumber(it) },
-                        { Log.e("TaskListPresenter", "callToOperator error") })
-                .also { disposables.add(it) }
-    }
 
     fun logOut() {
         AccountInteractor().logout()
-        view.logOut()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        { view.logOut() },
+                        { Log.d("TasksListPresenter", "Log out error", it)}
+                )
+                .also { disposables.add(it) }
     }
 
     fun refreshTasks() {
@@ -55,5 +50,9 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     fun destroy() {
         disposables.dispose()
+    }
+
+    fun connectWithSupport() {
+        view.startSupportChatActivity()
     }
 }

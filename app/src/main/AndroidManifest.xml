@@ -50,6 +50,12 @@
 
         <activity android:name=".presentation.navigation.view.NavigationActivity" />
 
+        <activity
+            android:name=".presentation.supportChat.view.SupportChatActivity"
+            android:label="@string/support_chat_title" />
+
+        <activity android:name=".presentation.navigation.view.NavigationActivity" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
