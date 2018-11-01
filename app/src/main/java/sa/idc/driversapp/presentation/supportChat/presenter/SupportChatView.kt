@@ -8,4 +8,6 @@ interface SupportChatView {
     fun onMessageSent()
     fun onMessageError()
     fun addNewMessage(message: SupportChatMessage)
+    /**Call to support */
+    fun callSupportNumber(number: String)
 }

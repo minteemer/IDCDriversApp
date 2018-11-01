@@ -14,19 +14,8 @@ class DriverTasksListPresenter(private val view: DriverTasksListView) {
 
     private val interactor = DriverTasksInteractor()
 
-    private val supportInteractor = SupportInteractor(SupportRepositoryImpl())
-
     private val disposables = CompositeDisposable()
 
-    fun callToOperator() {
-        supportInteractor.getSupportOperatorNumber()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { view.callSupportNumber(it) },
-                        { Log.e("TaskListPresenter", "callToOperator error") })
-                .also { disposables.add(it) }
-    }
 
     fun logOut() {
         AccountInteractor().logout()

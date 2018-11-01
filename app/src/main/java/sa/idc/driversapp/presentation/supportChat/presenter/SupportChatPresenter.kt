@@ -44,6 +44,16 @@ class SupportChatPresenter(private val view: SupportChatView) {
                 .also { disposables.add(it) }
     }
 
+    fun callToOperator() {
+        supportInteractor.getSupportOperatorNumber()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { view.callSupportNumber(it) },
+                        { Log.e("TaskListPresenter", "callToOperator error") })
+                .also { disposables.add(it) }
+    }
+
     fun destroy() {
         disposables.dispose()
     }

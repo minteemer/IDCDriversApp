@@ -49,7 +49,11 @@
         </service>
 
         <activity android:name=".presentation.navigation.view.NavigationActivity" />
-        <activity android:name=".presentation.supportChat.view.SupportChatActivity"></activity>
+
+        <activity
+            android:name=".presentation.supportChat.view.SupportChatActivity"
+            android:label="@string/support_chat_title" />
+
     </application>
 
 </manifest>

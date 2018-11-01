@@ -4,9 +4,6 @@
         android:id="@+id/support_chat_item"
         android:title="@string/support_chat_menu_item_text" />
     <item
-        android:id="@+id/call_support_item"
-        android:title="@string/call_support_menu_item_text" />
-    <item
         android:id="@+id/log_out_item"
         android:title="@string/log_out_menu_item_text" />
 </menu>
