@@ -9,7 +9,7 @@ interface SupportRepository {
 
     fun saveReceivedMessage(message: SupportChatMessage): Completable
 
-    fun sendMessage(message: String): Single<SupportChatMessage>
+    fun sendMessage(text: String): Single<SupportChatMessage>
 
     fun getSavedMessages(): Single<List<SupportChatMessage>>
 }

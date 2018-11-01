@@ -21,6 +21,15 @@ class AccountInteractor {
                     }
 
                     loginResult
+                }.flatMap { loginResult ->
+                    repository.getAccountData().map { accountData ->
+                        preferences.apply {
+                            driverId = accountData.id
+                            driverName = accountData.name
+                        }
+
+                        loginResult
+                    }
                 }
             }
 

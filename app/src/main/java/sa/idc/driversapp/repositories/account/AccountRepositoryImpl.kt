@@ -1,8 +1,11 @@
 package sa.idc.driversapp.repositories.account
 
 import io.reactivex.Single
+import retrofit2.HttpException
+import retrofit2.http.HTTP
 import sa.idc.driversapp.data.network.ApiConstructor
 import sa.idc.driversapp.data.network.entities.account.LogInRequestData
+import sa.idc.driversapp.domain.entities.account.AccountData
 import sa.idc.driversapp.domain.interactors.account.AccountRepository
 
 class AccountRepositoryImpl : AccountRepository {
@@ -24,4 +27,9 @@ class AccountRepositoryImpl : AccountRepository {
                         }
                     }
 
+    override fun getAccountData(): Single<AccountData> =
+            accountApi.getAccountData().map { response ->
+                response.takeIf { it.isSuccessful }?.body()?.result
+                        ?: throw HttpException(response)
+            }
 }

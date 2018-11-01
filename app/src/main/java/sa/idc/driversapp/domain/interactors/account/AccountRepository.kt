@@ -1,6 +1,7 @@
 package sa.idc.driversapp.domain.interactors.account
 
 import io.reactivex.Single
+import sa.idc.driversapp.domain.entities.account.AccountData
 
 interface AccountRepository {
 
@@ -19,4 +20,6 @@ interface AccountRepository {
             password: String,
             firebaseToken: String
     ): Single<Pair<LoginResult, String>>
+
+    fun getAccountData(): Single<AccountData>
 }

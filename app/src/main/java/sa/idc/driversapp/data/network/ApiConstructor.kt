@@ -9,6 +9,7 @@ import sa.idc.driversapp.R
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import sa.idc.driversapp.data.network.api.AccountAPI
+import sa.idc.driversapp.data.network.api.SupportAPI
 import sa.idc.driversapp.data.network.api.TasksAPI
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 import java.util.concurrent.TimeUnit
@@ -20,6 +21,7 @@ object ApiConstructor {
 
     val accountApi: AccountAPI by lazy { defaultRetrofit.create(AccountAPI::class.java) }
 
+    val supportApi: SupportAPI by lazy { defaultRetrofit.create(SupportAPI::class.java) }
 
     private val defaultRetrofit: Retrofit by lazy {
         defaultRetrofitBuilder
