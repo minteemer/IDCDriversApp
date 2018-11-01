@@ -18,6 +18,7 @@ import sa.idc.driversapp.presentation.supportChat.presenter.SupportChatPresenter
 import sa.idc.driversapp.presentation.supportChat.presenter.SupportChatView
 import android.view.inputmethod.EditorInfo
 import sa.idc.driversapp.util.AppPermissions
+import android.support.v4.os.HandlerCompat.postDelayed
 
 
 class SupportChatActivity : AppCompatActivity(), SupportChatView {
@@ -80,6 +81,18 @@ class SupportChatActivity : AppCompatActivity(), SupportChatView {
             stackFromEnd = true
         }
         rv_support_chat.adapter = SupportChatMessagesAdapter(messagesList)
+
+
+        rv_support_chat.addOnLayoutChangeListener { v, left, top,
+                                                    right, bottom, oldLeft, oldTop,
+                                                    oldRight, oldBottom ->
+            if (bottom < oldBottom) {
+                rv_support_chat.postDelayed(
+                        { rv_support_chat.scrollToPosition(messagesList.size - 1) },
+                        100
+                )
+            }
+        }
 
         iv_send_button.setOnClickListener { sendMessage() }
 
