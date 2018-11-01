@@ -9,15 +9,21 @@ import sa.idc.driversapp.domain.entities.support.SupportChatMessage
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 import sa.idc.driversapp.util.DateFormats
 
-class SupportChatMessageViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+
+class SupportChatMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun attach(message: SupportChatMessage) {
-        view.tv_message.text = message.text
-        view.tv_name.text = message.name
-        view.tv_time.text = DateFormats.defaultDateTime.format(message.date)
+        itemView.tv_message.text = message.text
+        itemView.tv_name.text = message.name
+        itemView.tv_time.text = DateFormats.defaultDateTime.format(message.date)
 
-        if (message.name == AppPreferences.instance.driverName && view is LinearLayout){
-            view.gravity = Gravity.END
+        if (itemView is LinearLayout){
+            itemView.gravity = if (message.name == AppPreferences.instance.driverName)
+                Gravity.END
+            else
+                Gravity.START
         }
+
+
     }
 }

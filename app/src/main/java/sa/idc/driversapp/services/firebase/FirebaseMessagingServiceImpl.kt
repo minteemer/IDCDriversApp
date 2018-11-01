@@ -7,6 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.domain.entities.support.SupportChatMessage
 import sa.idc.driversapp.domain.interactors.support.SupportInteractor
 import sa.idc.driversapp.presentation.supportChat.view.SupportChatActivity
+import sa.idc.driversapp.util.Notifier
 
 class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
 

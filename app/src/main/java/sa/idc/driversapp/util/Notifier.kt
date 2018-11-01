@@ -1,11 +1,10 @@
-package sa.idc.driversapp.services.firebase
+package sa.idc.driversapp.util
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.media.RingtoneManager
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import sa.idc.driversapp.IDCDriversApp
