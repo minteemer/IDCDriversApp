@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import sa.idc.driversapp.IDCDriversApp
@@ -42,6 +43,7 @@ object Notifier {
         val notificationBuilder = NotificationCompat.Builder(appContext, channelId)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.ic_notification_icon)
+                .setDefaults(NotificationCompat.DEFAULT_SOUND or NotificationCompat.DEFAULT_VIBRATE)
                 .setContentTitle(appContext.getString(R.string.new_task_notification_title))
                 .setContentText(appContext.getString(R.string.new_task_notification_text))
                 .setAutoCancel(true)
@@ -80,6 +82,7 @@ object Notifier {
         val notificationBuilder = NotificationCompat.Builder(appContext, channelId)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.ic_notification_icon)
+                .setDefaults(NotificationCompat.DEFAULT_SOUND or NotificationCompat.DEFAULT_VIBRATE)
                 .setContentTitle(message.name)
                 .setContentText(message.text)
                 .setAutoCancel(true)

@@ -5,8 +5,8 @@ import java.util.*
 data class SupportChatMessage(
         val name: String,
         val text: String,
-        val time: Long
+        val timestamp: Long
 ) {
     val date: Date
-        get() = Date(time)
+        get() = Date(timestamp)
 }
