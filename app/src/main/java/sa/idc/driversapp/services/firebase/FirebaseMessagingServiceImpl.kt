@@ -3,6 +3,7 @@ package sa.idc.driversapp.services.firebase
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.domain.entities.support.SupportChatMessage
 import sa.idc.driversapp.domain.interactors.support.SupportInteractor
 import sa.idc.driversapp.presentation.supportChat.view.SupportChatActivity
@@ -29,7 +30,7 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
 
             object Fields {
                 const val OPERATOR_NAME = "operator_name"
-                const val TEXT = "operator_name"
+                const val TEXT = "text"
                 const val DATE = "posted_date"
             }
         }
@@ -57,6 +58,12 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
             if (operatorName != null && text != null && date != null) {
                 SupportChatMessage(operatorName, text, date.toLong()).let {
                     supportInteractor.saveReceivedMessage(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(Schedulers.computation())
+                            .subscribe(
+                                    { Log.d(LOG_TAG, "$message saved") },
+                                    { e -> Log.d(LOG_TAG, "Error while saving $message", e) }
+                            )
 
                     if (!SupportChatActivity.isInForeground)
                         Notifier.sendNewSupportChatMessage(it)
@@ -66,7 +73,7 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
     }
 
     private fun handleNewTaskMessage(message: RemoteMessage) {
-        message.data[Messages.NewTask.Fields.ID]?.toLongOrNull()?.let{
+        message.data[Messages.NewTask.Fields.ID]?.toLongOrNull()?.let {
             Notifier.sendNewTaskNotification(it)
         }
     }
