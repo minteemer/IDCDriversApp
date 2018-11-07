@@ -59,6 +59,10 @@ class SupportChatActivity : AppCompatActivity(), SupportChatView {
                 presenter.callToOperator()
                 true
             }
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

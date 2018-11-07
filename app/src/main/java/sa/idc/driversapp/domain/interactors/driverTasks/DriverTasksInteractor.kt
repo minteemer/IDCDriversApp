@@ -5,6 +5,7 @@ import com.google.maps.model.DirectionsRoute
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.repositories.driverTasks.DriverTasksRepositoryImpl
+import sa.idc.driversapp.repositories.driverTasks.DummyDriverTasksRepository
 import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 

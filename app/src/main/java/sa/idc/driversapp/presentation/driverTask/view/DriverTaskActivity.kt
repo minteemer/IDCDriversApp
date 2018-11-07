@@ -40,6 +40,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_driver_task)
         setTitle(R.string.driver_task_activity_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val id = intent.getLongExtra(TASK_ID_INTENT_FIELD, -1L)
 
@@ -108,16 +109,26 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
             }
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_driver_task_menu, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = intent.getLongExtra(TASK_ID_INTENT_FIELD, -1L)
-        NavigationActivity.start(this,id)
-        return true
-    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+            when (item.itemId) {
+                R.id.show_map_item -> {
+                    val id = intent.getLongExtra(TASK_ID_INTENT_FIELD, -1L)
+                    NavigationActivity.start(this, id)
+                    true
+                }
+                android.R.id.home -> {
+                    onBackPressed()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
+
     override fun showTask(driverTask: DriverTask) {
         tv_contacts_field.text = driverTask.order.customerPhoneNumber
         tv_due_date_field.text = DateFormats.defaultDateTime.format(driverTask.order.dueDate)
