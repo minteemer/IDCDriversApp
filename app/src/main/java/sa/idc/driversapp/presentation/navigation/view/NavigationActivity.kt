@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -56,7 +57,17 @@ class NavigationActivity : AppCompatActivity(), NavigationView {
         presenter.loadTask(id)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+            when (item.itemId) {
+                android.R.id.home -> {
+                    onBackPressed()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
+
     private var task: DriverTask? = null
+
 
     override fun showTask(driverTask: DriverTask) {
         task = driverTask

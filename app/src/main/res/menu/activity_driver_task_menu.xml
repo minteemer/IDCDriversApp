@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/show_map"
+        android:id="@+id/show_map_item"
         android:icon="@drawable/ic_navigation_button"
         app:showAsAction="always"
         android:title="@string/show_map_item_title" />
