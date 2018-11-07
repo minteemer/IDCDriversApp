@@ -8,12 +8,10 @@ import sa.idc.driversapp.repositories.driverTasks.DriverTasksRepositoryImpl
 import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 
-class DriverTasksInteractor {
-
-    private val driverTasksRepository: DriverTasksRepository = DriverTasksRepositoryImpl()
-
-    private val googleMapsRepository: GoogleMapsRepository by lazy { GoogleMapsRepository() }
-
+class DriverTasksInteractor(
+        private val googleMapsRepository: GoogleMapsRepository = GoogleMapsRepository(),
+        private val driverTasksRepository: DriverTasksRepository = DriverTasksRepositoryImpl()
+) {
 
     fun refreshTasks(): Single<List<DriverTask>> = driverTasksRepository.refreshTasks()
 

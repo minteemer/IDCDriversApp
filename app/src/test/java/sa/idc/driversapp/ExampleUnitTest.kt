@@ -3,6 +3,7 @@ package sa.idc.driversapp
 import org.junit.Test
 
 import org.junit.Assert.*
+import sa.idc.driversapp.domain.interactors.account.AccountRepository
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -13,5 +14,6 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+        val ac : AccountRepository
     }
 }

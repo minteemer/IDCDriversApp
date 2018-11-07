@@ -4,7 +4,8 @@ import android.content.Context
 import sa.idc.driversapp.IDCDriversApp
 
 class AppPreferences private constructor(context: Context) :
-        BaseSharedPreferences(context.getSharedPreferences(NAME, Context.MODE_PRIVATE)) {
+        BaseSharedPreferences(context.getSharedPreferences(NAME, Context.MODE_PRIVATE)),
+        PreferencesRepository {
 
     companion object {
         private const val NAME = "app_preferences"
@@ -23,15 +24,15 @@ class AppPreferences private constructor(context: Context) :
     }
 
 
-    var token: String by stringPreference(Keys.TOKEN, Default.TOKEN)
+   override var token: String by stringPreference(Keys.TOKEN, Default.TOKEN)
 
-    var login: String by stringPreference(Keys.LOGIN, Default.LOGIN)
+   override var login: String by stringPreference(Keys.LOGIN, Default.LOGIN)
 
-    var driverName: String by stringPreference(Keys.DRIVER_NAME, Default.DRIVER_NAME)
+   override var driverName: String by stringPreference(Keys.DRIVER_NAME, Default.DRIVER_NAME)
 
-    var driverId: Long by longPreference(Keys.DRIVER_ID, Default.DRIVER_ID)
+   override var driverId: Long by longPreference(Keys.DRIVER_ID, Default.DRIVER_ID)
 
-    var acceptedTaskId: Long by longPreference(Keys.ID_OF_ACCEPTED_TASK, Default.ID_OF_ACCEPTED_TASK)
+   override var acceptedTaskId: Long by longPreference(Keys.ID_OF_ACCEPTED_TASK, Default.ID_OF_ACCEPTED_TASK)
 
     object Default {
         const val TOKEN = ""
