@@ -17,7 +17,6 @@ class DriverTasksInteractor {
 
 
     fun refreshTasks(): Single<List<DriverTask>> = driverTasksRepository.refreshTasks()
-
     fun getTaskByID(taskId: Long): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
 
     private val preferences = AppPreferences.instance
