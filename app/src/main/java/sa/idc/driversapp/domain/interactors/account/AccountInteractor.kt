@@ -7,11 +7,13 @@ import io.reactivex.schedulers.Schedulers
 import sa.idc.driversapp.data.db.DBHelper
 import sa.idc.driversapp.repositories.account.AccountRepositoryImpl
 import sa.idc.driversapp.repositories.preferences.AppPreferences
+import sa.idc.driversapp.repositories.preferences.PreferencesRepository
 
-class AccountInteractor {
+class AccountInteractor(
+        private val repository: AccountRepository = AccountRepositoryImpl(),
+        private val preferences:PreferencesRepository = AppPreferences.instance
+) {
 
-    private val preferences = AppPreferences.instance
-    private val repository: AccountRepository = AccountRepositoryImpl()
 
     fun login(login: String, password: String): Single<AccountRepository.LoginResult> =
             getFirebaseToken().flatMap { firebaseToken ->
