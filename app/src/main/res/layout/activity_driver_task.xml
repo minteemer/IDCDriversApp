@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context="sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity"
     tools:layout_editor_absoluteY="81dp">
-
-
 
 
     <TextView
         android:id="@+id/tv_due_date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:text="@string/due_date"
         android:textSize="14sp"
@@ -23,9 +21,8 @@
 
     <TextView
         android:id="@+id/tv_due_date_field"
-        android:layout_width="376dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="-20dp"
         android:textColor="#000"
         android:textSize="20sp"
@@ -34,12 +31,10 @@
         tools:text="12.12.2018 12:30" />
 
 
-
     <TextView
         android:id="@+id/tv_contacts"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="@string/contacts"
         android:textSize="14sp"
@@ -50,10 +45,9 @@
         android:id="@+id/tv_contacts_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
-        android:textSize="20sp"
         android:textColor="#000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_contacts"
@@ -61,9 +55,8 @@
 
     <TextView
         android:id="@+id/tv_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="@string/description"
         android:textSize="14sp"
@@ -74,10 +67,9 @@
         android:id="@+id/tv_description_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
-        android:textSize="20sp"
         android:textColor="#000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_description"
@@ -85,9 +77,8 @@
 
     <TextView
         android:id="@+id/tv_customer_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="@string/customer_name"
         android:textSize="14sp"
@@ -97,8 +88,7 @@
     <TextView
         android:id="@+id/tv_customer_email"
         android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/customer_email"
         android:textSize="14sp"
@@ -109,56 +99,51 @@
         android:id="@+id/tv_customer_name_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:textColor="#000"
-        android:text="@string/customer_name_field"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_name"
+        tools:text="Arsen Kuzmin" />
 
     <TextView
         android:id="@+id/tv_customer_email_field"
         android:layout_width="0dp"
-        android:textColor="#000"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/customer_email_field"
+        android:textColor="#000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_email" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_email"
+        tools:text="kek@heh.mda" />
 
     <TextView
         android:id="@+id/tv_origin_address"
         android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/customer_origin_address"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_customer_email_field" />
+
     <TextView
         android:id="@+id/tv_origin_address_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8sp"
         android:textColor="#000"
-        android:layout_marginTop="0dp"
-        android:text="@string/original_address"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_origin_address" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_origin_address"
+        tools:text="Kolotuskina 321" />
 
 
     <TextView
         android:id="@+id/tv_destination_address"
         android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/customer_origin_address"
         android:textSize="14sp"
@@ -169,29 +154,21 @@
         android:id="@+id/tv_destination_address_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/destination_address"
+        android:textColor="#000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="#000"
-        app:layout_constraintTop_toBottomOf="@+id/tv_destination_address" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_destination_address"
+        tools:text="Pushkina 123" />
 
-
-    <android.support.constraint.Barrier
-        android:id="@+id/buttons_barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        app:constraint_referenced_ids="accept_finish_button,tv_already_have" />
 
     <Button
         android:id="@+id/accept_finish_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:padding="10dp"
         android:background="@color/colorPrimary"
+        android:padding="10dp"
         android:text="@string/button_default_text"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -202,14 +179,13 @@
         android:id="@+id/tv_already_have"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:gravity="center"
         android:text="@string/already_have"
         android:textColor="#ff0000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
