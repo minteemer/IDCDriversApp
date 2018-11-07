@@ -11,7 +11,7 @@ import sa.idc.driversapp.repositories.preferences.AppPreferences
 
 class DriverTasksInteractor {
 
-    private val driverTasksRepository: DriverTasksRepository = DummyDriverTasksRepository()
+    private val driverTasksRepository: DriverTasksRepository = DriverTasksRepositoryImpl()
 
     private val googleMapsRepository: GoogleMapsRepository by lazy { GoogleMapsRepository() }
 
