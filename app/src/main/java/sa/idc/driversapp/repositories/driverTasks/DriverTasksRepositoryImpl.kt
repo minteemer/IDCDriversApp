@@ -26,7 +26,7 @@ class DriverTasksRepositoryImpl : DriverTasksRepository {
                                     .objects(
                                             oldTasks.filter { oldTask ->
                                                 tasks.none { it.id == oldTask.id }
-                                            }
+                                            }.map { TaskEntry(it) }
                                     )
                                     .prepare()
                                     .asRxCompletable()
