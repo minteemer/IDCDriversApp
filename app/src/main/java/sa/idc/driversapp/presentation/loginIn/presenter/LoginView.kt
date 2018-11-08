@@ -12,4 +12,7 @@ interface LoginView {
 
     /** show error message*/
     fun showErrorMessage()
+
+    fun startLogInProgress()
+    fun stopLogInProgress()
 }

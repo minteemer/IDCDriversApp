@@ -22,18 +22,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:hintEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_send_button"
         app:layout_constraintStart_toStartOf="parent">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="@string/enter_message"
             android:imeOptions="actionSend"
-            android:inputType="text|textAutoCorrect|textCapSentences"
-            android:hint="@string/enter_message" />
+            android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
+            android:maxLines="4"
+            tools:text="asdf asfa sdf asd fads f asdf asdf ads fa sdf asdf ads fasd f asdf asdf asd fasd fads f asdf asdf asdf adsf ads fads fdf fadsf adsf asd fads f fasdf asda gfsd fgs sdfg" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -43,10 +46,10 @@
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_send"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/til_message_field" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/pb_send_progress"

@@ -14,7 +14,7 @@
     <!-- Login -->
     <string name="login_activity_title">IDC Drivers log in</string>
     <string name="login_button">Log in</string>
-    <string name="login_field_hint">Login</string>
+    <string name="login_field_hint">E-mail</string>
     <string name="password_field_hint">Password</string>
     <string name="login_connection_error">Check your internet connection</string>
     <string name="login_error">Something went wrong</string>

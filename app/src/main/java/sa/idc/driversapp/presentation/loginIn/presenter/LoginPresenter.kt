@@ -13,9 +13,11 @@ class LoginPresenter(private val view: LoginView) {
     private val disposables = CompositeDisposable()
 
     fun login(log: String, password: String) {
+        view.startLogInProgress()
         interactor.login(log, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { view.stopLogInProgress() }
                 .subscribe(
                         {
                             when (it) {

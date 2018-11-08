@@ -87,9 +87,7 @@ class SupportChatActivity : AppCompatActivity(), SupportChatView {
         rv_support_chat.adapter = SupportChatMessagesAdapter(messagesList)
 
 
-        rv_support_chat.addOnLayoutChangeListener { v, left, top,
-                                                    right, bottom, oldLeft, oldTop,
-                                                    oldRight, oldBottom ->
+        rv_support_chat.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
             if (bottom < oldBottom) {
                 rv_support_chat.postDelayed(
                         { rv_support_chat.scrollToPosition(messagesList.size - 1) },
