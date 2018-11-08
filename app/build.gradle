@@ -12,8 +12,8 @@ android {
         applicationId "sa.idc.driversapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.5"
+        versionCode 6
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
