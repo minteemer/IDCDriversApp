@@ -59,19 +59,17 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
     }
 
     override fun setStatus(taskId: Long) {
-        val context = this
         if (preferences.acceptedTaskId == taskId) {
-            tv_already_have.visibility = View.GONE
-
             accept_finish_button.apply {
                 text = getString(R.string.finish_task_button)
                 visibility = View.VISIBLE
+                isEnabled = true
                 setBackgroundColor(ContextCompat.getColor(
                         context,
                         R.color.colorAccentDark
                 ))
                 setOnClickListener {
-                    AlertDialog.Builder(context)
+                    AlertDialog.Builder(this@DriverTaskActivity)
                             .setTitle(R.string.finish_question)
                             .setPositiveButton(R.string.yes) { _, _ ->
                                 presenter.finishTask(taskId)
@@ -91,7 +89,7 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                             R.color.colorPrimary
                     ))
                     setOnClickListener {
-                        AlertDialog.Builder(context)
+                        AlertDialog.Builder(this@DriverTaskActivity)
                                 .setTitle(R.string.question_accept)
                                 .setPositiveButton(R.string.yes) { _, _ ->
                                     presenter.acceptTask(taskId)
@@ -101,11 +99,12 @@ class DriverTaskActivity : AppCompatActivity(), DriverTaskView {
                                 .show()
                     }
                 }
-
-                tv_already_have.visibility = View.GONE
             } else {
-                accept_finish_button.visibility = View.GONE
-                tv_already_have.visibility = View.VISIBLE
+                accept_finish_button.apply {
+                    isEnabled = false
+                    visibility = View.INVISIBLE
+                }
+                tv_already_have_task.visibility = View.VISIBLE
             }
         }
     }

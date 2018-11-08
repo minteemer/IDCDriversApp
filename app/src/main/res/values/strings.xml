@@ -51,7 +51,7 @@
     <string name="accept_task_button">Accept task</string>
     <string name="description">Description:</string>
     <string name="message_after_finishing">Task is finished!</string>
-    <string name="already_have">You already have an order to finish</string>
+    <string name="already_have_task">You already have a task to finish</string>
     <string name="question_accept">Are you sure you want to start the task?</string>
     <string name="finish_question">Are you sure you have finished the task?</string>
     <string name="customer_name">Customer name:</string>

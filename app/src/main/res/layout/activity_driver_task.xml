@@ -4,169 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context="sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity"
-    tools:layout_editor_absoluteY="81dp">
 
+    tools:context="sa.idc.driversapp.presentation.driverTask.view.DriverTaskActivity">
 
-    <TextView
-        android:id="@+id/tv_due_date"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/due_date"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/accept_finish_button"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_due_date_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:textColor="#000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_due_date"
-        tools:text="12.12.2018 12:30" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
+            <TextView
+                android:id="@+id/tv_due_date"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/due_date"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_contacts"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/contacts"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_due_date_field" />
-
-    <TextView
-        android:id="@+id/tv_contacts_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="#000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_contacts"
-        tools:text="8 800 555 35 35" />
-
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/description"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_contacts_field" />
-
-    <TextView
-        android:id="@+id/tv_description_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:textColor="#000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description"
-        tools:text="Description" />
-
-    <TextView
-        android:id="@+id/tv_customer_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/customer_name"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description_field" />
-
-    <TextView
-        android:id="@+id/tv_customer_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/customer_email"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_name_field" />
-
-    <TextView
-        android:id="@+id/tv_customer_name_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textColor="#000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_name"
-        tools:text="Arsen Kuzmin" />
-
-    <TextView
-        android:id="@+id/tv_customer_email_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_email"
-        tools:text="kek@heh.mda" />
-
-    <TextView
-        android:id="@+id/tv_origin_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/customer_origin_address"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_email_field" />
-
-    <TextView
-        android:id="@+id/tv_origin_address_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_origin_address"
-        tools:text="Kolotuskina 321" />
+            <TextView
+                android:id="@+id/tv_due_date_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_due_date"
+                tools:text="12.12.2018 asdf 12:30" />
 
 
-    <TextView
-        android:id="@+id/tv_destination_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/customer_origin_address"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_origin_address_field" />
+            <TextView
+                android:id="@+id/tv_contacts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/contacts"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_due_date_field" />
 
-    <TextView
-        android:id="@+id/tv_destination_address_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_destination_address"
-        tools:text="Pushkina 123" />
+            <TextView
+                android:id="@+id/tv_contacts_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_contacts"
+                tools:text="8 800 555 35 35" />
 
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/description"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_contacts_field" />
+
+            <TextView
+                android:id="@+id/tv_description_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                tools:text="Description" />
+
+            <TextView
+                android:id="@+id/tv_customer_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/customer_name"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description_field" />
+
+            <TextView
+                android:id="@+id/tv_customer_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/customer_email"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_name_field" />
+
+            <TextView
+                android:id="@+id/tv_customer_name_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textColor="#000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_name"
+                tools:text="Arsen Kuzmin" />
+
+            <TextView
+                android:id="@+id/tv_customer_email_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_email"
+                tools:text="kek@heh.mda" />
+
+            <TextView
+                android:id="@+id/tv_origin_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/customer_origin_address"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_email_field" />
+
+            <TextView
+                android:id="@+id/tv_origin_address_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_origin_address"
+                tools:text="Kolotuskina 321" />
+
+
+            <TextView
+                android:id="@+id/tv_destination_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/customer_origin_address"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_origin_address_field" />
+
+            <TextView
+                android:id="@+id/tv_destination_address_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_destination_address"
+                tools:text="Pushkina 123" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/accept_finish_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:background="@color/colorPrimary"
         android:padding="10dp"
         android:text="@string/button_default_text"
@@ -176,19 +185,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_already_have"
-        android:layout_width="0dp"
+        android:id="@+id/tv_already_have_task"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="@string/already_have"
-        android:textColor="#ff0000"
+        android:text="@string/already_have_task"
+        android:textColor="#d33"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/accept_finish_button"
+        app:layout_constraintTop_toTopOf="@id/accept_finish_button"
+        app:layout_constraintEnd_toEndOf="@id/accept_finish_button"
+        app:layout_constraintStart_toStartOf="@id/accept_finish_button" />
 
 
 </android.support.constraint.ConstraintLayout>
