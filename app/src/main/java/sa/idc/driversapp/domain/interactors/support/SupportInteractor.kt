@@ -3,15 +3,15 @@ package sa.idc.driversapp.domain.interactors.support
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import sa.idc.driversapp.domain.entities.support.SupportChatMessage
 import sa.idc.driversapp.repositories.support.SupportRepositoryImpl
 
 class SupportInteractor(private val repository: SupportRepository = SupportRepositoryImpl()) {
 
     companion object {
-        private val newMessagesBehaviorSubject: BehaviorSubject<SupportChatMessage> =
-                BehaviorSubject.create<SupportChatMessage>()
+        private val newMessagesBehaviorSubject: PublishSubject<SupportChatMessage> =
+                PublishSubject.create<SupportChatMessage>()
 
         val newMessagesObservable: Observable<SupportChatMessage> =
                 newMessagesBehaviorSubject
@@ -27,5 +27,6 @@ class SupportInteractor(private val repository: SupportRepository = SupportRepos
             repository.saveReceivedMessage(message)
                     .doOnComplete { newMessagesBehaviorSubject.onNext(message) }
 
-    fun getSavedMessages() = repository.getSavedMessages()
+    fun getSavedMessages(): Single<List<SupportChatMessage>> =
+            repository.getSavedMessages()
 }

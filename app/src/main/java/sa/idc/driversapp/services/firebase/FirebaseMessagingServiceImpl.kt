@@ -45,12 +45,12 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
 
         when (message.data[TYPE_FIELD]) {
             Messages.NewTask.TYPE_NAME -> handleNewTaskMessage(message)
-            Messages.SupportChatMessage.TYPE_NAME -> handleSupportMessageNo(message)
+            Messages.SupportChatMessage.TYPE_NAME -> handleSupportMessage(message)
             else -> Log.e(LOG_TAG, "Unknown message type!")
         }
     }
 
-    private fun handleSupportMessageNo(message: RemoteMessage) {
+    private fun handleSupportMessage(message: RemoteMessage) {
         with(Messages.SupportChatMessage.Fields) {
             val operatorName = message.data[OPERATOR_NAME]
             val text = message.data[TEXT]

@@ -18,7 +18,6 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import sa.idc.driversapp.domain.interactors.tracking.TrackingInteractor
 import sa.idc.driversapp.repositories.preferences.AppPreferences
-import sa.idc.driversapp.util.AppPermissions
 
 class TrackingDataService : Service() {
 
@@ -29,7 +28,8 @@ class TrackingDataService : Service() {
             context.startService(Intent(context, TrackingDataService::class.java))
         }
 
-        private val currentLocationBehaviorSubject = BehaviorSubject.create<Location>()
+        private val currentLocationBehaviorSubject: BehaviorSubject<Location> =
+                BehaviorSubject.create<Location>()
 
         val currentLocationObservable: Observable<Location> = currentLocationBehaviorSubject
     }
