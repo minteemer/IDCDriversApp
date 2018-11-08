@@ -5,7 +5,6 @@ import com.google.maps.model.DirectionsRoute
 import io.reactivex.Single
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.repositories.driverTasks.DriverTasksRepositoryImpl
-import sa.idc.driversapp.repositories.driverTasks.DummyDriverTasksRepository
 import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 
@@ -17,6 +16,8 @@ class DriverTasksInteractor {
 
 
     fun refreshTasks(): Single<List<DriverTask>> = driverTasksRepository.refreshTasks()
+
+    fun getCachedTasks(): Single<List<DriverTask>> = driverTasksRepository.getCachedTasks()
 
     fun getTaskByID(taskId: Long): Single<DriverTask?> = driverTasksRepository.getTaskById(taskId)
 

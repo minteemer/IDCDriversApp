@@ -25,7 +25,7 @@
     <string name="driver_tasks_list_title">Delivery tasks</string>
     <string name="get_driver_tasks_list_error">Error while downloading list of tasks, please try later!</string>
     <string name="tasks_list_item_due_date">Due to:\n%1$s</string>
-    <string name="task_list_item_order_id">Order № %1$d</string>
+    <string name="task_list_item_order_id">Task № %1$d</string>
     <string name="no_task_for_now">You don\'t have any tasks for now</string>
 
     <!--Menu Items -->
