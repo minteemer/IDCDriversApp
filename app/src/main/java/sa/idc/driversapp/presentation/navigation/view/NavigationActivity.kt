@@ -18,10 +18,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
 import com.google.maps.model.DirectionsRoute
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_task_navigation.*
 import sa.idc.driversapp.R
 import sa.idc.driversapp.domain.entities.driverTasks.DriverTask
 import sa.idc.driversapp.presentation.navigation.presenter.NavigationPresenter
@@ -29,6 +31,8 @@ import sa.idc.driversapp.presentation.navigation.presenter.NavigationView
 import sa.idc.driversapp.repositories.googleMaps.GoogleMapsRepository
 import sa.idc.driversapp.repositories.preferences.AppPreferences
 import sa.idc.driversapp.services.trackingData.TrackingDataService
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class NavigationActivity : AppCompatActivity(), NavigationView {
 
@@ -72,6 +76,32 @@ class NavigationActivity : AppCompatActivity(), NavigationView {
     override fun showTask(driverTask: DriverTask) {
         task = driverTask
         title = getString(R.string.task_navigation_title, driverTask.id)
+
+        startTimer(driverTask.order.dueDate)
+    }
+
+    private fun startTimer(dueDate: Date) {
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .map {
+                    getTimeLeftString(
+                            (dueDate.time - System.currentTimeMillis())
+                                    .coerceAtLeast(0)
+                    )
+                }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { tv_remaining_time.text = it }
+                .also { disposables.add(it) }
+    }
+
+    private fun getTimeLeftString(millisLeft: Long): String {
+        val daysLeft = TimeUnit.MILLISECONDS.toDays(millisLeft)
+        val hoursLeft = TimeUnit.MILLISECONDS.toHours(millisLeft) - TimeUnit.DAYS.toHours(daysLeft)
+        val minutesLeft = TimeUnit.MILLISECONDS.toMinutes(millisLeft) -
+                TimeUnit.HOURS.toMinutes(hoursLeft) -
+                TimeUnit.DAYS.toMinutes(daysLeft)
+
+        return getString(R.string.remaining_time, daysLeft, hoursLeft, minutesLeft)
     }
 
     private var disposables = CompositeDisposable()

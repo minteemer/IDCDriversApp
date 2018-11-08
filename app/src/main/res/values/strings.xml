@@ -81,12 +81,13 @@
 
     <!-- Navigation -->
     <string name="task_navigation_title">Task №%d Navigation</string>
+    <string name="remaining_time_title">Remaining time:</string>
+    <string name="remaining_time">%d d : %d h : %d m</string>
 
     <!-- Support chat -->
     <string name="support_chat_title">Support chat</string>
     <string name="enter_message">Enter message…</string>
     <string name="support_chat_menu_item_text">Contact support</string>
     <string name="send_message_error">Failed to send the message. Check Internet connection!</string>
-
 
 </resources>
