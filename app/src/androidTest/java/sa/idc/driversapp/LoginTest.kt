@@ -1,20 +1,24 @@
 package sa.idc.driversapp
 
-import android.support.test.InstrumentationRegistry
+import android.content.ComponentName
+import android.support.test.InstrumentationRegistry.getTargetContext
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.runner.AndroidJUnit4
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
-
+import android.support.test.espresso.intent.rule.IntentsTestRule
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.runner.AndroidJUnit4
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 import sa.idc.driversapp.presentation.driverTasksList.view.DriverTasksListActivity
 import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
+import android.support.test.espresso.Espresso
+
+
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -23,26 +27,24 @@ import sa.idc.driversapp.presentation.loginIn.view.LoginActivity
  */
 @RunWith(AndroidJUnit4::class)
 class LoginTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.idc.driversapp", appContext.packageName)
-    }
+
+
+    @Rule
+    @JvmField
+    public var mLoginActivityActivityTestRule = IntentsTestRule(LoginActivity::class.java)
+
+
     @Test
     fun loginActivityTest(){
 
         onView(withId(R.id.et_login_field)).perform(typeText("eb@idc.com"));
         onView(withId(R.id.ed_password_field)).perform(typeText("qwe123"));
         onView(withId(R.id.login_btn)).perform(click());
-        intended(hasComponent(DriverTasksListActivity::class.java.getName()))
+        Thread.sleep(1  )
+        intended(hasComponent(ComponentName(getTargetContext(), DriverTasksListActivity::class.java)))
     }
-    @Test
-    fun logout(){
-        onView(withId(R.id.log_out_item)).perform(click())
-        intended(hasComponent(LoginActivity::class.java.getName()))
 
-    }
 
 
 }
+
